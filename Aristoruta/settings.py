@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MenuP',
     'Rutas',
+    'Usuarios',
+    "Login",
+    'Iniciar',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +79,12 @@ WSGI_APPLICATION = 'Aristoruta.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'usuarios',
+        'USER': 'usuario',
+        'PASSWORD': 'usuario123',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
