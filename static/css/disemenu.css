@@ -1,0 +1,48 @@
+/* Fondo con imagen y capa oscura */
+.fondo {
+    position: relative;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background-image: url("../img/fondo1.jpg"); /* asegúrate que esté en static/img/ */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Capa negra semi-transparente encima del fondo */
+.fondo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: -1;
+}
+
+/* Recuadro oscuro para contenido principal */
+.content-box {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 40px 60px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(1,1,1,1);
+    max-width: 700px;
+    z-index: 1;
+}
+
+/* Estilo normal de los enlaces del menú */
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff; /* blanco por defecto */
+    transition: color 0.3s ease;
+}
+
+/* Color al pasar el mouse */
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #FFD700 !important; /* dorado */
+}
+

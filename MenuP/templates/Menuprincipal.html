@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Principal</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/disemenu.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body class="fondo">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">AristoRutas</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav" aria-controls="menuNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menuNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'rutas' %}">Rutas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">Quienes Somos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="d-flex justify-content-center align-items-center" style="height: 100vh; padding-top: 80px;">
+        <div class="content-box text-center">
+            <h1 class="display-4">Bienvenido a la página de rutas</h1>
+            <p class="lead" style="text-align: justify;">Aquí podrás gestionar tus rutas y explorar nuestros servicios.</p>
+            <p class="lead" style="text-align: justify;">En AristoRutas queremos acompañarte en cada aventura por El Salvador, ofreciéndote una guía completa que hará que tus viajes sean más cómodos, seguros y agradables. Nuestro objetivo es que disfrutes cada recorrido sin preocupaciones, con información clara y práctica que te ayude a moverte con facilidad por las diferentes rutas del país.</p>
+            <p class="lead" style="text-align: justify;"> Ya sea que explores ciudades llenas de historia, playas paradisíacas o pueblos con encanto, encontrarás en AristoRutas consejos útiles, recomendaciones de lugares, y detalles que harán tu experiencia más amigable y enriquecedora. Queremos que cada trayecto se convierta en una oportunidad para descubrir, aprender y disfrutar, siempre con la tranquilidad de contar con una guía confiable a tu lado.</p>
+            <p class="lead" style="text-align: justify;"> ¡Prepárate para vivir El Salvador de una manera especial con AristoRutas!</p>
+            <a href="{% url 'rutas' %}" class="btn btn-warning btn-lg mt-3">Explorar Rutas</a>
+        </div>
+
+    </main>
+
+</body>
+</html>
