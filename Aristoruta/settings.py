@@ -39,9 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MenuP',
     'Rutas',
-    'Usuarios',
-    "Login",
-    'Iniciar',
 ]
 
 MIDDLEWARE = [
