@@ -22,6 +22,8 @@ from Rutas import views as rutas_views
 from Login import views as login_views
 from Iniciar import views as iniciar_views
 from QuienesSomos import views as quienes_views
+from Servicios import views as Servicios_views
+
 
 
 urlpatterns = [
@@ -34,5 +36,6 @@ urlpatterns = [
     path('Rutas/urbanas/', rutas_views.urbanas, name='urbanas'),
     path('Rutas/interurbanas/', rutas_views.interurbanas, name='interurbanas'),
     path('Rutas/interdepartamentales/', rutas_views.interdepartamentales, name='interdepartamentales'),
+    path('Servicios/', Servicios_views.upgrade_plan, name='upgrade_plan'),
    
 ]
