@@ -5,3 +5,12 @@ from django.http import HttpResponse
 
 def Rutas(request):
     return render(request, 'rutas.html')
+
+def urbanas(request):
+    return render(request, 'urbanas.html')
+
+def interurbanas(request):
+    return render(request, 'interurbanas.html')
+
+def interdepartamentales(request):
+    return render(request, 'interdepartamentales.html')

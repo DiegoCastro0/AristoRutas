@@ -1,79 +1,143 @@
-/* Fondo de la página */
-.fondo1 {
-    position: relative;
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    min-height: 100vh;
-    background-image: url("../img/fondo1.jpg"); /* esté en static/img/ */
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: #fff;
-    z-index: 0;
-    overflow: hidden;
+/* ===================================== */
+/* Fondo general */
+/* ===================================== */
+.fondo {
+  background-image: url("../img/fondo1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  min-height: 100vh;
+
+  /* Mejoras visuales */
+  filter: brightness(1.12) contrast(1.07) saturate(1.05);
+  image-rendering: optimizeQuality;
 }
 
-.fondo1::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: -1;
+/* Oscurecimiento suave del fondo */
+.fondo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(2px);
+  z-index: -1;
 }
 
-/* Caja de contenido */
-.content-box-rutas {
-    background: #000;
-    color: #fff;
-    padding: 40px 60px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
-    max-width: 900px;
+/* ===================================== */
+/* Cards de rutas */
+/* ===================================== */
+.ruta-card {
+  height: 260px;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Nitidez aumentada */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: high-quality;
+
+  /* Brillo mejorado */
+  filter: brightness(1.10) contrast(1.05);
+
+  transition: 
+    transform .3s ease,
+    box-shadow .3s ease,
+    filter .3s ease;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .5);
 }
 
-/* Botón personalizado */
-.btn-custom {
-    background-color: #257edd;
-    color: #fff;
-    font-weight: 600;
-    padding: 8px 20px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    border: none;
+/* ANIMACIÓN HOVER */
+.ruta-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, .75);
+
+  /* Brillo dinámico al pasar el mouse */
+  filter: brightness(1.18) contrast(1.09) saturate(1.08);
 }
 
-/* Hover */
-.btn-custom:hover {
-    background-color: #80ec78;
-    color: #fff;
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+/* Gradiente oscuro encima de la imagen */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, .15),
+    rgba(0, 0, 0, .70)
+  );
 }
 
-/* Active (mientras presionas) */
-.btn-custom:active {
-    background-color: #2f681a;
-    color: #fff;
-    transform: scale(0.95);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+/* Información dentro de la tarjeta */
+.card-info {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  z-index: 2;
+  color: #ffffff;
 }
 
-/* Focus (queda marcado después del click) */
-.btn-custom:focus {
-    background-color: #21341b;
-    color: #fff;
-    transform: scale(0.95);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+.card-info h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+
+  /* Texto más nítido */
+  text-shadow: 0 2px 4px rgba(0,0,0,.8);
 }
 
-/* Recuadro negro detrás de texto */
-.text-box {
-    display: inline-block;
-    background: #000;
-    color: #fff;
-    padding: 6px 12px;
-    border-radius: 6px;
+/* ===================================== */
+/* Modales estilo oscuro */
+/* ===================================== */
+.modal-dark {
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 14px;
+  border: none;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .7);
+
+  /* Mejora visual modal */
+  filter: brightness(1.05);
+}
+
+.modal-dark .modal-header {
+  border-bottom: none;
+  background: linear-gradient(90deg, #257edd, #8d78ec);
+  color: #fff;
+}
+
+.modal-dark .btn-close {
+  filter: invert(1);
+}
+
+/* Animaciones del modal */
+.modal.fade .modal-dialog {
+  transform: translateY(-20px);
+  transition: transform .35s ease, opacity .35s ease;
+}
+
+.modal.show .modal-dialog {
+  transform: translateY(0);
+}
+
+/* ===================================== */
+/* Ajustes responsivos */
+/* ===================================== */
+@media (max-width: 768px) {
+  .ruta-card {
+    height: 220px;
+
+    /* Aumentar brillo en pantallas pequeñas */
+    filter: brightness(1.22);
+  }
+
+  .card-info h3 {
+    font-size: 1.2rem;
+  }
 }

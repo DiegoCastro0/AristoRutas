@@ -31,4 +31,8 @@ urlpatterns = [
     path('login/', login_views.login_view, name="login"),
     path('iniciar/', iniciar_views.iniciar_sesion_view, name='iniciar_sesion'),
     path('quienes_somos/', quienes_views.Quienes, name='quienes'),
+    path('urbanas/', rutas_views.urbanas, name='urbanas'),
+    path('interurbanas/', rutas_views.interurbanas, name='interurbanas'),
+    path('interdepartamentales/', rutas_views.interdepartamentales, name='interdepartamentales'),
+   
 ]

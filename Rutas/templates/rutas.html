@@ -1,86 +1,98 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rutas</title>
-    {% load static %}
-    <!-- Tu CSS personalizado -->
-    <link rel="stylesheet" href="{% static 'css/diserutas.css' %}">
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossorigin="anonymous">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rutas</title>
+
+  {% load static %}
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/css/diserutas.css' %}">
 </head>
-<body class="fondo1">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#">AristoRutas</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav"
-                        aria-controls="menuNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="menuNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="{% url 'rutas' %}">Rutas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="">Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'quienes' %}">Quienes Somos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'iniciar_sesion' %}">Login</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+<body class="fondo">
 
-    <main class="d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh; padding-top: 80px;">
-        <div class="content-box-rutas text-center">
-            <h1 class="display-4">Gestión de Rutas</h1>
-            <p class="lead">Aquí podrás visualizar las Rutas que tenemos disponibles.</p>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">AristoRutas</a>
 
-            <!-- Tabla de rutas -->
-            <div class="table-responsive mt-4">
-                <table class="table table-dark table-striped table-bordered table-rutas">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre de la Ruta</th>
-                            <th>Origen</th>
-                            <th>Destino</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Ruta 333</td>
-                            <td>Jucuapa</td>
-                            <td>San Miguel</td>
-                            <td>
-                                <button class="btn-custom btn-sm rounded">VER</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Ruta 11</td>
-                            <td>San Miguel</td>
-                            <td>San Miguel</td>
-                            <td>
-                                <button class="btn-custom btn-sm rounded">VER</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            <!-- Botón extra -->
-            <a href="" class="btn-custom btn-sm">Sugerencias</a>
+      <div class="collapse navbar-collapse" id="menuNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{% url 'rutas' %}">Rutas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'quienes' %}">Quienes Somos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido Principal -->
+  <main class="container" style="padding-top: 110px;">
+    <h1 class="text-center text-light fw-bold mb-4">Categorías de Rutas</h1>
+    <p class="text-center text-light lead mb-5">Seleccione el tipo de rutas que desea ver.</p>
+
+    <div class="row g-4">
+
+      <!-- URBANAS -->
+      <div class="col-md-6">
+        <div class="ruta-card" style="background-image: url(/static/img/buses/images.jpg)">
+          <div class="overlay"></div>
+          <div class="card-info">
+            <h3>Rutas Urbanas</h3>
+            <p>Rutas dentro del municipio de San Miguel.</p>
+            <a href="{% url 'urbanas' %}" class="btn btn-light btn-sm mt-2">
+              Ver urbanas
+            </a>
+          </div>
         </div>
-    </main>
+      </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- DEPARTAMENTALES -->
+      <div class="col-md-6">
+        <div class="ruta-card" style="background-image: url(/static/img/buses/13.jpg)">
+          <div class="overlay"></div>
+          <div class="card-info">
+            <h3>Rutas Departamentales</h3>
+            <p>Conectan municipios dentro del mismo departamento.</p>
+            <a href="{% url 'interdepartamentales' %}" class="btn btn-light btn-sm mt-2">
+              Ver departamentales
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERURBANAS -->
+      <div class="col-md-6">
+        <div class="ruta-card" style="background-image: url(/static/img/buses/333.jpg)">
+          <div class="overlay"></div>
+          <div class="card-info">
+            <h3>Rutas Interurbanas</h3>
+            <p>Conectan diferentes departamentos del país.</p>
+            <a href="{% url 'interurbanas' %}" class="btn btn-light btn-sm mt-2">
+              Ver interurbanas
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="#" class="btn btn-primary btn-lg">Sugerencias</a>
+    </div>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
