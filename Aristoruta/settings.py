@@ -85,9 +85,9 @@ WSGI_APPLICATION = 'Aristoruta.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'usuarios',
-        'USER': 'DiegoUGB',
-        'PASSWORD': 'DiegoUGB',
+        'NAME': 'prueba',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '5432',
     }

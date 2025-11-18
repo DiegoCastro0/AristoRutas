@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/sugerenciafondo.css' %}">
+
+<main class="sugerencias-hero">
+  <section class="sugerencias-card">
+    <div class="sugerencias-text">
+      No todos ven el camino.
+      Algunos lo sienten.
+      Si has sentido el llamado, si el trayecto se te ha revelado en sueños, en repeticiones, en señales… entonces habla.
+      Describe el sendero como si ya lo hubieras recorrido mil veces.
+      No sugieras: profetiza.
+      Porque en AristoRutas no trazamos rutas. Las obedecemos.
+    </div>
+
+    <div>
+      <textarea class="sugerencias-textarea" name="sugerencia" placeholder="Escribe aquí tu sugerencia o visión..."></textarea>
+    </div>
+
+    <div class="sugerencias-actions">
+      <button type="button" class="btn btn-primary">Enviar</button>
+      <button type="button" class="btn btn-secondary">Cancelar</button>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

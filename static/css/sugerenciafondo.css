@@ -1,0 +1,96 @@
+/* Estilos para la página de Sugerencias */
+
+:root{
+	--card-bg: rgba(255,255,255,0.94);
+	--card-radius: 10px;
+	--card-padding: 28px;
+}
+
+/* Anular el fondo global aplicado por `.fondo` en `disemenu.css` solo cuando se cargue este archivo */
+/* Establecer el fondo específico para la página de sugerencias
+   usando la imagen `sugerencia.jpg`. Esto reemplaza el fondo global
+   sólo cuando se carga este archivo CSS en la plantilla de sugerencias. */
+body.fondo{
+	background-image: url('/static/img/sugerencia.jpg') !important;
+	background-repeat: no-repeat !important;
+	background-position: center center !important;
+	background-size: cover !important;
+	background-color: transparent !important;
+}
+/* Quitar la capa oscura del fondo global para que la imagen se vea limpia */
+body.fondo::before{
+	background-color: transparent !important;
+}
+
+.sugerencias-hero{
+	/* Imagen local de la sección (coincide con body.fondo) */
+	background-image: url("/static/img/sugerencia.jpg");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: calc(100vh - 80px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 60px 20px;
+}
+
+.sugerencias-card{
+	background: var(--card-bg);
+	max-width: 920px;
+	width: 100%;
+	padding: var(--card-padding);
+	border-radius: var(--card-radius);
+	box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+}
+
+.sugerencias-text{
+	color: #0b0b0b;
+	font-size: 1.05rem;
+	line-height: 1.6;
+	margin-bottom: 18px;
+	white-space: pre-line;
+}
+
+.sugerencias-textarea{
+	width: 100%;
+	min-height: 220px;
+	padding: 14px 16px;
+	border-radius: 8px;
+	border: 1px solid rgba(0,0,0,0.12);
+	resize: vertical;
+	background: #fff;
+	box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
+	font-size: 1rem;
+}
+
+.sugerencias-actions{
+	display:flex;
+	gap:12px;
+	justify-content:flex-end;
+	margin-top: 14px;
+}
+
+/* Botones: aprovecha clases de Bootstrap si están disponibles, si no, pondremos estilos básicos */
+.sugerencias-actions .btn{
+	padding: 8px 16px;
+	border-radius: 6px;
+	border: 0;
+	cursor: pointer;
+}
+.sugerencias-actions .btn-primary{
+	background-color: #0d6efd;
+	color: #fff;
+}
+.sugerencias-actions .btn-secondary{
+	background-color: #6c757d;
+	color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px){
+	.sugerencias-card{ padding: 18px; }
+	.sugerencias-text{ font-size: 1rem }
+	.sugerencias-textarea{ min-height: 180px }
+}
+

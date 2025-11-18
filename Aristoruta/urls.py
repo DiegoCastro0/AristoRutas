@@ -36,6 +36,7 @@ urlpatterns = [
     path('Rutas/urbanas/', rutas_views.urbanas, name='urbanas'),
     path('Rutas/interurbanas/', rutas_views.interurbanas, name='interurbanas'),
     path('Rutas/interdepartamentales/', rutas_views.interdepartamentales, name='interdepartamentales'),
+    path('Rutas/sugerencias/', rutas_views.sugerencias, name='sugerencias'),
     path('Servicios/', Servicios_views.upgrade_plan, name='upgrade_plan'),
    
 ]
