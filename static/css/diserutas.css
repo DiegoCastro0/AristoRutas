@@ -2,7 +2,7 @@
 /* Fondo general */
 /* ===================================== */
 .fondo {
-  background-image: url("../img/fondo1.jpg");
+  background-image: url("../img/fondos.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -140,4 +140,41 @@
   .card-info h3 {
     font-size: 1.2rem;
   }
+}
+
+/* Botón personalizado */
+.btn-custom {
+    background-color: #257edd;   /* azul base */
+    color: #fff;               
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 6px;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover: cuando pasas el mouse */
+.btn-custom:hover {
+    background-color: #1a453c;   /* verde agua brillante */
+    color: #fff;                
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Active: mientras mantienes presionado */
+.btn-custom:active {
+    background-color: #16a085;   
+    color: #fff;
+    transform: scale(0.95);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* Focus: queda marcado después del click */
+.btn-custom:focus {
+    background-color: #16a085;
+    color: #fff;
+    transform: scale(0.95);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    outline: none;
 }
