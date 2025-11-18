@@ -1,192 +1,147 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Planes de Membresía - AristoRutas</title>
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/disemenu.css' %}">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    html, body {
-      height: auto;
-      min-height: 100%;
-      overflow-y: auto;
-      background-color: #000000;
-      color: #ffffff;
-    }
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    /* Esto asegura que el fondo sea negro en lugar de la imagen del bosque */
     body.fondo {
-      background-color: #000000;
-      color: #ffffff;
+    
+        background-color: #000000 !important; /* Ponemos negro */
+        color: #ffffff;
     }
     .card {
-      background-color: #1a1a1a;
-      color: #ffffff;
+        background-color: #1a1a1a;
+        color: #ffffff;
     }
     .card-header {
-      font-weight: bold;
+        font-weight: bold;
     }
-    .modal-backdrop {
-      z-index: 1040;
-    }
-    .modal {
-      z-index: 1050;
-    }
-    .modal.show {
-      display: block;
-      pointer-events: auto;
-    }
-  </style>
-</head>
-<body class="fondo">
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">AristoRutas</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="menuNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'rutas' %}">Rutas</a></li>
-            <li class="nav-item"><a class="nav-link active" href="{% url 'upgrade_plan' %}">Servicios</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'quienes' %}">Quienes Somos</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'iniciar_sesion' %}">Login</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+    /* Ajustes para el modal */
+    .modal-backdrop { z-index: 1040; }
+    .modal { z-index: 1050; }
+</style>
 
-  <main class="container-fluid" style="padding-top: 100px; padding-bottom: 40px;">
+<div class="container-fluid" style="padding-top: 100px; padding-bottom: 40px;">
     <div class="content-box p-4 mx-auto" style="max-width: 800px;">
-      <h1 class="text-center mb-5">Planes de Membresía</h1>
+        <h1 class="text-center mb-5">Planes de Membresía</h1>
 
-      <!-- Plan Gratuito -->
-      <div class="card mb-4 border border-secondary">
-        <div class="card-header bg-secondary text-white text-center">Plan Gratuito</div>
-        <div class="card-body">
-          <p>Acceso básico a filtros de búsqueda de rutas.</p>
-          <ul class="list-unstyled">
-            <li>✔ Filtrar rutas por origen y destino</li>
-            <li>✖ Ver detalles de horarios y paradas</li>
-            <li>✖ Descarga de reportes</li>
-          </ul>
-          <p class="fw-bold text-center mt-3">Precio: $0/mes</p>
+        <div class="card mb-4 border border-secondary">
+            <div class="card-header bg-secondary text-white text-center">Plan Gratuito</div>
+            <div class="card-body">
+                <p>Acceso básico a filtros de búsqueda de rutas.</p>
+                <ul class="list-unstyled">
+                    <li>✔ Filtrar rutas por origen y destino</li>
+                    <li>✖ Ver detalles de horarios y paradas</li>
+                    <li>✖ Descarga de reportes</li>
+                </ul>
+                <p class="fw-bold text-center mt-3">Precio: $0/mes</p>
+            </div>
         </div>
-      </div>
 
-      <!-- Plan Básico -->
-      <div class="card mb-4 border border-primary">
-        <div class="card-header bg-primary text-white text-center">Premium Básico</div>
-        <div class="card-body">
-          <p>Ideal para usuarios frecuentes que necesitan más información.</p>
-          <ul class="list-unstyled">
-            <li>✔ Filtrar rutas por origen y destino</li>
-            <li>✔ Ver detalles de horarios y paradas</li>
-            <li>✖ Descarga de reportes</li>
-          </ul>
-          <p class="fw-bold text-center mt-3">Precio: $4.99/mes</p>
+        <div class="card mb-4 border border-primary">
+            <div class="card-header bg-primary text-white text-center">Premium Básico</div>
+            <div class="card-body">
+                <p>Ideal para usuarios frecuentes que necesitan más información.</p>
+                <ul class="list-unstyled">
+                    <li>✔ Filtrar rutas por origen y destino</li>
+                    <li>✔ Ver detalles de horarios y paradas</li>
+                    <li>✖ Descarga de reportes</li>
+                </ul>
+                <p class="fw-bold text-center mt-3">Precio: $4.99/mes</p>
+            </div>
         </div>
-      </div>
 
-      <!-- Plan Avanzado -->
-      <div class="card mb-4 border border-success">
-        <div class="card-header bg-success text-white text-center">Premium Avanzado</div>
-        <div class="card-body">
-          <p>Para quienes necesitan acceso completo a la información.</p>
-          <ul class="list-unstyled">
-            <li>✔ Filtrar rutas por origen y destino</li>
-            <li>✔ Ver detalles de horarios y paradas</li>
-            <li>✔ Descarga de reportes en PDF</li>
-          </ul>
-          <p class="fw-bold text-center mt-3">Precio: $9.99/mes</p>
+        <div class="card mb-4 border border-success">
+            <div class="card-header bg-success text-white text-center">Premium Avanzado</div>
+            <div class="card-body">
+                <p>Para quienes necesitan acceso completo a la información.</p>
+                <ul class="list-unstyled">
+                    <li>✔ Filtrar rutas por origen y destino</li>
+                    <li>✔ Ver detalles de horarios y paradas</li>
+                    <li>✔ Descarga de reportes en PDF</li>
+                </ul>
+                <p class="fw-bold text-center mt-3">Precio: $9.99/mes</p>
+            </div>
         </div>
-      </div>
 
-      <!-- Plan Institucional -->
-      <div class="card mb-4 border border-light">
-        <div class="card-header bg-dark text-white text-center">Premium Institucional</div>
-        <div class="card-body">
-          <p>Diseñado para empresas, escuelas o instituciones públicas.</p>
-          <ul class="list-unstyled">
-            <li>✔ Acceso completo a todos los datos</li>
-            <li>✔ Panel de administración de usuarios</li>
-            <li>✔ Soporte técnico prioritario</li>
-          </ul>
-          <p class="fw-bold text-center mt-3">Precio: $29.99/mes</p>
+        <div class="card mb-4 border border-light">
+            <div class="card-header bg-dark text-white text-center">Premium Institucional</div>
+            <div class="card-body">
+                <p>Diseñado para empresas, escuelas o instituciones públicas.</p>
+                <ul class="list-unstyled">
+                    <li>✔ Acceso completo a todos los datos</li>
+                    <li>✔ Panel de administración de usuarios</li>
+                    <li>✔ Soporte técnico prioritario</li>
+                </ul>
+                <p class="fw-bold text-center mt-3">Precio: $29.99/mes</p>
+            </div>
         </div>
-      </div>
 
-      <!-- Botón para abrir el formulario -->
-      <div class="text-center mt-5">
-         <button class="btn btn-outline-light" onclick="reproducirAudioYAbrirModal()">Mejorar plan</button>
-      </div>
+        <div class="text-center mt-5">
+            <button class="btn btn-outline-light" onclick="reproducirAudioYAbrirModal()">Mejorar plan</button>
+        </div>
     </div>
-  </main>
+</div>
 
-  <!-- Modal con formulario centrado -->
-  <div class="modal fade" id="formularioPago" tabindex="-1" aria-labelledby="formularioPagoLabel" aria-hidden="true">
+<div class="modal fade" id="formularioPago" tabindex="-1" aria-labelledby="formularioPagoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-dark text-white">
-        <div class="modal-header">
-          <h5 class="modal-title" id="formularioPagoLabel">Mejorar tu plan</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formularioPagoLabel">Mejorar tu plan</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="plan" class="form-label">Selecciona tu plan</label>
+                        <select class="form-select" id="plan" required>
+                            <option value="">-- Elige una opción --</option>
+                            <option value="Premium Básico">Premium Básico - $4.99/mes</option>
+                            <option value="Premium Avanzado">Premium Avanzado - $9.99/mes</option>
+                            <option value="Premium Institucional">Premium Institucional - $29.99/mes</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre completo</label>
+                        <input type="text" class="form-control" id="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="correo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tarjeta" class="form-label">Número de tarjeta</label>
+                        <input type="text" class="form-control" id="tarjeta" maxlength="16" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vencimiento" class="form-label">Fecha de vencimiento</label>
+                        <input type="month" class="form-control" id="vencimiento" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cvv" class="form-label">CVV</label>
+                        <input type="password" class="form-control" id="cvv" maxlength="4" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Confirmar y pagar</button>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="plan" class="form-label">Selecciona tu plan</label>
-              <select class="form-select" id="plan" required>
-                <option value="">-- Elige una opción --</option>
-                <option value="Premium Básico">Premium Básico - $4.99/mes</option>
-                <option value="Premium Avanzado">Premium Avanzado - $9.99/mes</option>
-                <option value="Premium Institucional">Premium Institucional - $29.99/mes</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre completo</label>
-              <input type="text" class="form-control" id="nombre" required>
-            </div>
-            <div class="mb-3">
-              <label for="correo" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" id="correo" required>
-            </div>
-            <div class="mb-3">
-              <label for="tarjeta" class="form-label">Número de tarjeta</label>
-              <input type="text" class="form-control" id="tarjeta" maxlength="16" required>
-            </div>
-            <div class="mb-3">
-              <label for="vencimiento" class="form-label">Fecha de vencimiento</label>
-              <input type="month" class="form-control" id="vencimiento" required>
-            </div>
-            <div class="mb-3">
-              <label for="cvv" class="form-label">CVV</label>
-              <input type="password" class="form-control" id="cvv" maxlength="4" required>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Confirmar y pagar</button>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <audio id="audioConfirmacion" src="{% static 'audio/auidowasaa.mp3' %}" preload="auto"></audio>
+{% load static %}
+<audio id="audioConfirmacion" src="{% static 'audio/auidowasaa.mp3' %}" preload="auto"></audio>
 
 <script>
-  function reproducirAudioYAbrirModal() {
-    const audio = document.getElementById('audioConfirmacion');
-    if (audio) {
-      audio.currentTime = 0;
-      audio.play();
+    function reproducirAudioYAbrirModal() {
+        const audio = document.getElementById('audioConfirmacion');
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play().catch(error => console.log("Error al reproducir audio:", error));
+        }
+        // Usamos bootstrap.Modal (Bootstrap ya está cargado en base.html)
+        const modal = new bootstrap.Modal(document.getElementById('formularioPago'));
+        modal.show();
     }
-    const modal = new bootstrap.Modal(document.getElementById('formularioPago'));
-    modal.show();
-  }
 </script>
 
-</body>
-</html>
+{% endblock %}

@@ -61,7 +61,10 @@ ROOT_URLCONF = 'Aristoruta.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        
+        # ESTA ES LA PARTE QUE DABA ERROR, :
+        'DIRS': [BASE_DIR / 'templates'],
+        
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

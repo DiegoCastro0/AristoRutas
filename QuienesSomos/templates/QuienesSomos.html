@@ -1,38 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiénes Somos - AristoRutas</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/disemenu.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-<body class="fondo">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#">AristoRutas</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav" aria-controls="#menuNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+{% extends 'base.html' %}
 
-                <div class="collapse navbar-collapse" id="menuNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'rutas' %}">Rutas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'upgrade_plan'%}">Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="{% url 'quienes' %}">Quienes Somos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'iniciar_sesion' %}">Iniciar sesión</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+{% block content %}
 
-    <main class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100vh; padding-top: 80px;">
+    <div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100%; padding-top: 80px; padding-bottom: 2rem;">
+        
         <div class="content-box" style="max-width: 800px; width: 100%;">
             <h1 class="card-title text-center">Quiénes Somos</h1>
+            
             <p style="text-align: justify;">
                 AristoRutas es una plataforma web diseñada para mejorar la movilidad urbana en San Miguel, El Salvador, centralizando información confiable sobre rutas, horarios y puntos de salida del transporte público colectivo.<br><br>
                 Nuestro equipo combina experiencia en desarrollo tecnológico y conocimiento territorial para ofrecer una herramienta útil a estudiantes, trabajadores, comerciantes y demás usuarios del sistema de transporte. El sistema integra mapas interactivos, descripciones precisas y filtros de búsqueda que permiten planificar desplazamientos de forma eficiente y segura.<br><br>
@@ -40,13 +14,12 @@
                 AristoRutas no es solo una guía: es una solución digital para reducir la incertidumbre en los trayectos, mejorar la experiencia de movilidad diaria y fortalecer el uso informado del transporte colectivo.<br><br>
                 Para sugerencias o asistencia técnica, estamos disponibles. Tu experiencia nos ayuda a mejorar.
             </p>
+            
             <div class="text-center">
                 <a href="{% url 'rutas' %}" class="btn btn-primary mt-3">Ver Rutas</a>
             </div>
         </div>
-    </main>
-    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
+    </div>
+
+{% endblock %}
