@@ -41,10 +41,17 @@ INSTALLED_APPS = [
     'Rutas',
     'Usuarios',
     "Login",
-    'Iniciar',
     'QuienesSomos',
     'Servicios',
 ]
+
+
+AUTH_USER_MODEL = 'Usuarios.Usuario'  # tu user oficial
+
+LOGIN_URL = 'iniciar_sesion' # nombre de URL para login
+LOGIN_REDIRECT_URL = 'home'  # adonde redirige tras login
+LOGOUT_REDIRECT_URL = 'login'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,9 +92,9 @@ WSGI_APPLICATION = 'Aristoruta.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'prueba',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
+        'NAME': 'AristoRutas',
+        'USER': 'DiegoUGB',
+        'PASSWORD': 'DiegoUGB',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -118,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/El_Salvador'
 
 USE_I18N = True
 

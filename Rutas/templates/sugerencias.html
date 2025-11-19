@@ -6,6 +6,7 @@
 
 <main class="sugerencias-hero">
   <section class="sugerencias-card">
+    <!-- Texto introductorio -->
     <div class="sugerencias-text">
       No todos ven el camino.
       Algunos lo sienten.
@@ -15,15 +16,43 @@
       Porque en AristoRutas no trazamos rutas. Las obedecemos.
     </div>
 
-    <div>
-      <textarea class="sugerencias-textarea" name="sugerencia" placeholder="Escribe aquí tu sugerencia o visión..."></textarea>
-    </div>
+    <!-- Formulario -->
+    <form method="POST" action="{% url 'sugerencias' %}">
+      {% csrf_token %}
+      <div>
+        <textarea class="sugerencias-textarea" name="sugerencia" placeholder="Escribe aquí tu sugerencia o visión..." required></textarea>
+      </div>
 
-    <div class="sugerencias-actions">
-      <button type="button" class="btn btn-primary">Enviar</button>
-      <button type="button" class="btn btn-secondary">Cancelar</button>
-    </div>
+      <div class="sugerencias-actions">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        <a href="{% url 'rutas' %}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+
+    <hr>
+
+    <!-- Mostrar mensajes -->
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <!-- Listado de sugerencias del usuario -->
+    <h5>Tus sugerencias</h5>
+    <ul>
+      {% for sug in sugerencias %}
+        <li>
+          <strong>{{ sug.nombre_usuario }} (ID: {{ sug.usuario.id }})</strong><br>
+          {{ sug.comentario }} <br>
+          <small>{{ sug.fecha_creacion|date:"d/m/Y H:i" }}</small>
+        </li>
+      {% empty %}
+        <li>No has enviado sugerencias aún.</li>
+      {% endfor %}
+    </ul>
   </section>
 </main>
-
 {% endblock %}
