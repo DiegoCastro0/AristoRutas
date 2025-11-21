@@ -2,18 +2,23 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Sugerencia
+from .models import RutaBus
 
 def Rutas(request):
     return render(request, 'rutas.html')
 
 def urbanas(request):
-    return render(request, 'urbanas.html')
+    rutas = RutaBus.objects.filter(tipo='Urbana', estado='Activa')
+    return render(request, 'urbanas.html', {'rutas': rutas})
 
 def interurbanas(request):
-    return render(request, 'interurbanas.html')
+    rutas = RutaBus.objects.filter(tipo='Interurbana', estado='Activa')
+    # Renderiza la plantilla con la lista de rutas (la plantilla actual se llama 'Interurbanas.html')
+    return render(request, 'Interurbanas.html', {'rutas': rutas})
 
 def interdepartamentales(request):
-    return render(request, 'interdepartamentales.html')
+    rutas = RutaBus.objects.filter(tipo='Interdepartamental', estado='Activa')
+    return render(request, 'interdepartamentales.html', {'rutas': rutas})
 
 @login_required
 def sugerencias(request):
@@ -39,3 +44,4 @@ def sugerencias(request):
     usuario = request.user
     sugerencias_usuario = Sugerencia.objects.filter(usuario=usuario).order_by('-fecha_creacion')
     return render(request, 'sugerencias.html', {'sugerencias': sugerencias_usuario})
+

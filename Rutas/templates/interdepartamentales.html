@@ -3,114 +3,63 @@
 
 {% block content %}
 
-    <link rel="stylesheet" href="{% static 'css/diserutas.css' %}">
+<link rel="stylesheet" href="{% static 'css/diserutas.css' %}">
 
-    <div class="container" style="padding-top: 110px; padding-bottom: 50px;">
+<div class="container" style="padding-top: 110px; padding-bottom: 50px;">
 
-        <div class="mb-4">
-            <a href="{% url 'rutas' %}" class="btn btn-outline-light rounded-pill px-4">
-                ← Volver a Categorías
-            </a>
-        </div>
-
-        <h1 class="text-center text-light fw-bold mb-4">Gestión de Rutas Departamentales</h1>
-        <p class="text-center text-light lead mb-5">Visualiza todas las rutas disponibles.</p>
-
-        <div class="row g-4">
-
-            <div class="col-md-6">
-                <div class="ruta-card" style="background-image: url(/static/img/buses/333.jpg)">
-                    <div class="overlay"></div>
-                    <div class="card-info">
-                        <h3>Ruta 333</h3>
-                        <p>Origen: Jucuapa</p>
-                        <p>Destino: San Miguel</p>
-                        <button class="btn-custom btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modal333"> Ver detalles</button>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="ruta-card" style="background-image: url(/static/img/buses/images.jpg)">
-                    <div class="overlay"></div>
-                    <div class="card-info">
-                        <h3>Ruta 11</h3>
-                        <p>Origen: San Miguel</p>
-                        <p>Destino: San Miguel</p>
-                        <button class="btn-custom btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modal11"> Ver detalles</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="ruta-card" style="background-image: url(/static/img/buses/13.jpg)">
-                    <div class="overlay"></div>
-                    <div class="card-info">
-                        <h3>Ruta 13</h3>
-                        <p>Origen: San Miguel</p>
-                        <p>Destino: San Miguel</p>
-                        <button class="btn-custom btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modal13"> Ver detalles</button>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="text-center mt-5">
-            <a href="#" class="btn btn-primary btn-lg">Sugerencias</a>
-        </div>
-
+    <div class="mb-4">
+        <a href="{% url 'rutas' %}" class="btn btn-outline-light rounded-pill px-4">
+            ← Volver a Categorías
+        </a>
     </div>
 
-    <div class="modal fade" id="modal333" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-dark" style="background-color: #212529; color: white;">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title">Ruta 333</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+    <h1 class="text-center text-light fw-bold mb-4">Gestión de Rutas Interdepartamentales</h1>
+    <p class="text-center text-light lead mb-5">Visualiza todas las rutas disponibles.</p>
+
+    <div class="row g-4">
+        {% for ruta in rutas %}
+        <div class="col-md-6">
+            <div class="ruta-card" style="background-image: url({{ ruta.imagen }})">
+                <div class="overlay"></div>
+                <div class="card-info">
+                    <h3>{{ ruta.nombre_ruta }}</h3>
+                    <p>Origen: {{ ruta.origen }}</p>
+                    <p>Destino: {{ ruta.destino }}</p>
+                    <button class="btn-custom btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modal{{ ruta.id }}"> Ver detalles</button>
                 </div>
-                <div class="modal-body">
-                    <p><strong>Origen:</strong> Jucuapa</p>
-                    <p><strong>Destino:</strong> San Miguel</p>
-                    <p>Descripción: Conecta la zona oriental con la ciudad de San Miguel.</p>
-                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="#" class="btn btn-primary btn-lg">Sugerencias</a>
+    </div>
+
+</div>
+
+{% for ruta in rutas %}
+<div class="modal fade" id="modal{{ ruta.id }}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content modal-dark" style="background-color: #212529; color: white;">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title">{{ ruta.nombre_ruta }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                <p><strong>Origen:</strong> {{ ruta.origen }}</p>
+                <p><strong>Destino:</strong> {{ ruta.destino }}</p>
+                <p><strong>Tarifa:</strong> ${{ ruta.tarifa }}</p>
+                {% if ruta.paradas %}
+                <p><strong>Paradas:</strong> {{ ruta.paradas|join:", " }}</p>
+                {% endif %}
+                {% if ruta.link %}
+                <iframe src="{{ ruta.link }}" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"></iframe>
+                {% endif %}
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="modal11" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-dark" style="background-color: #212529; color: white;">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title">Ruta 11</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Origen:</strong> San Miguel</p>
-                    <p><strong>Destino:</strong> San Miguel</p>
-                    <p>Descripción: Ruta interna ideal para transporte urbano.</p>
-                    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=14YOrv5SV1rOXMp_R4UqSuyrSeRqOuV8&ehbc=2E312F" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal13" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-dark" style="background-color: #212529; color: white;">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title">Ruta 13</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Origen:</strong> San Miguel</p>
-                    <p><strong>Destino:</strong> San Miguel</p>
-                    <p>Descripción: Ruta interna ideal para transporte urbano.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+{% endfor %}
 
 {% endblock %}
