@@ -91,38 +91,40 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="plan" class="form-label">Selecciona tu plan</label>
-                        <select class="form-select" id="plan" required>
-                            <option value="">-- Elige una opción --</option>
-                            <option value="Premium Básico">Premium Básico - $4.99/mes</option>
-                            <option value="Premium Avanzado">Premium Avanzado - $9.99/mes</option>
-                            <option value="Premium Institucional">Premium Institucional - $29.99/mes</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre completo</label>
-                        <input type="text" class="form-control" id="nombre" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="correo" class="form-label">Correo electrónico</label>
-                        <input type="email" class="form-control" id="correo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="tarjeta" class="form-label">Número de tarjeta</label>
-                        <input type="text" class="form-control" id="tarjeta" maxlength="16" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="vencimiento" class="form-label">Fecha de vencimiento</label>
-                        <input type="month" class="form-control" id="vencimiento" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="cvv" class="form-label">CVV</label>
-                        <input type="password" class="form-control" id="cvv" maxlength="4" required>
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Confirmar y pagar</button>
-                </form>
+                <form method="POST" action="{% url 'upgrade_plan' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="plan" class="form-label">Selecciona tu plan</label>
+        <select class="form-select" id="plan" name="plan" required>
+            <option value="">-- Elige una opción --</option>
+            <option value="Premium Básico">Premium Básico - $4.99/mes</option>
+            <option value="Premium Avanzado">Premium Avanzado - $9.99/mes</option>
+            <option value="Premium Institucional">Premium Institucional - $29.99/mes</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre completo</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+    <div class="mb-3">
+        <label for="correo" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="correo" name="correo" required>
+    </div>
+    <div class="mb-3">
+        <label for="tarjeta" class="form-label">Número de tarjeta</label>
+        <input type="text" class="form-control" id="tarjeta" name="tarjeta" maxlength="16" required>
+    </div>
+    <div class="mb-3">
+        <label for="vencimiento" class="form-label">Fecha de vencimiento</label>
+        <input type="month" class="form-control" id="vencimiento" name="vencimiento" required>
+    </div>
+    <div class="mb-3">
+        <label for="cvv" class="form-label">CVV</label>
+        <input type="password" class="form-control" id="cvv" name="cvv" maxlength="4" required>
+    </div>
+    <button type="submit" class="btn btn-success w-100">Confirmar y pagar</button>
+</form>
+
             </div>
         </div>
     </div>
