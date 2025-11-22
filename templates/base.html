@@ -27,9 +27,8 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'rutas' %}">Rutas</a></li>
-                        
+                        <li class="nav-item"><a class="nav-link" href="{% url 'donde_voy' %}">¿A dónde voy?</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'upgrade_plan' %}">Servicios</a></li>
-                        
                         <li class="nav-item"><a class="nav-link" href="{% url 'quienes' %}">Quienes Somos</a></li>
                         
                         {% if user.is_authenticated %}

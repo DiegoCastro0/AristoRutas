@@ -5,6 +5,8 @@ from Rutas import views as rutas_views
 from Login import views as login_views
 from QuienesSomos import views as quienes_views
 from Servicios import views as Servicios_views
+from Rutas import views as Rutas_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +25,6 @@ urlpatterns = [
     path('Rutas/interdepartamentales/', rutas_views.interdepartamentales, name='interdepartamentales'),
     path('Rutas/sugerencias/', rutas_views.sugerencias, name='sugerencias'),
     path('Servicios/', Servicios_views.upgrade_plan, name='upgrade_plan'),
+    path('Rutas/donde-voy/', Rutas_views.donde_voy, name='donde_voy'),
+
 ]

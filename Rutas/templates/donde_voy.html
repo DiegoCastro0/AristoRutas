@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero-section d-flex align-items-center justify-content-center"
+         style="min-height: 100vh; background: url('{% static "img/fondos.jpg" %}') center/cover no-repeat;">
+    <div class="overlay position-absolute w-100 h-100" style="background: rgba(0,0,0,0.65); top:0; left:0;"></div>
+
+    <div class="container position-relative" style="z-index: 2;">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <h1 class="text-center text-light fw-bold mb-3">¿A dónde voy?</h1>
+                <p class="text-center text-light mb-4">
+                    Ingresa tu origen y destino o usa tu ubicación actual para que AristoRutas te sugiera rutas de buses.
+                </p>
+
+                <div class="card bg-dark text-light shadow-lg border-0">
+                    <div class="card-body p-4">
+
+                        <!-- FORMULARIO -->
+                        <form method="get" action="{% url 'donde_voy' %}" id="form-donde-voy">
+                            <!-- modo de búsqueda (manual / gps) -->
+                            <input type="hidden" name="modo" id="modoInput" value="{{ modo|default:'manual' }}">
+                            <input type="hidden" name="lat" id="latInput" value="{{ lat }}">
+                            <input type="hidden" name="lon" id="lonInput" value="{{ lon }}">
+
+                            <!-- Selector de modo -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">¿Cómo quieres indicar tu origen?</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                               name="modo_radio" id="modoManual"
+                                               value="manual"
+                                               {% if modo == 'manual' or not modo %}checked{% endif %}>
+                                        <label class="form-check-label" for="modoManual">Elegir desde lista</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                               name="modo_radio" id="modoGps"
+                                               value="gps"
+                                               {% if modo == 'gps' %}checked{% endif %}>
+                                        <label class="form-check-label" for="modoGps">Usar mi ubicación actual</label>
+                                    </div>
+                                </div>
+                                <small class="text-muted d-block mt-1" id="gpsInfo" style="display:none;">
+                                    Usaremos tu ubicación aproximada del navegador para sugerir rutas cercanas.
+                                </small>
+                            </div>
+
+                            <!-- Origen -->
+                            <div class="mb-3">
+                                <label for="origenInput" class="form-label fw-bold">Origen</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="origenInput"
+                                       name="origen"
+                                       placeholder="Ej. Ciudad Barrios, UGB, Metrocentro..."
+                                       value="{{ origen }}">
+                            </div>
+
+                            <!-- Destino -->
+                            <div class="mb-4">
+                                <label for="destinoInput" class="form-label fw-bold">Destino</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="destinoInput"
+                                       name="destino"
+                                       placeholder="Ej. UES, El Tecomatal, El Cuco..."
+                                       value="{{ destino }}">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 fw-bold">
+                                Buscar rutas
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+                <!-- RESULTADOS -->
+                {% if rutas_sugeridas %}
+                    <div class="mt-5">
+                        <h2 class="text-light mb-3">Rutas sugeridas</h2>
+
+                        <div class="row g-3">
+                            {% for ruta in rutas_sugeridas %}
+                                <div class="col-md-6">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bold">{{ ruta.nombre_ruta }}</h5>
+                                            <p class="card-text mb-1"><strong>Origen:</strong> {{ ruta.origen }}</p>
+                                            <p class="card-text mb-1"><strong>Destino:</strong> {{ ruta.destino }}</p>
+                                            <p class="card-text mb-1">
+                                                <strong>Tipo:</strong> {{ ruta.tipo }} |
+                                                <strong>Tarifa aprox:</strong> ${{ ruta.tarifa }}
+                                            </p>
+                                            {% if ruta.paradas %}
+                                                <p class="card-text">
+                                                    <strong>Paradas:</strong> {{ ruta.paradas }}
+                                                </p>
+                                            {% endif %}
+                                            {% if ruta.link %}
+                                                <a href="{{ ruta.link }}" target="_blank" class="btn btn-outline-primary btn-sm mt-2">
+                                                    Ver recorrido en mapa
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                {% elif request.GET %}
+                    <!-- Hubo búsqueda pero sin resultados -->
+                    <div class="mt-5">
+                        <p class="text-light text-center">
+                            No se encontraron rutas que conecten esos puntos.
+                            Prueba con otros nombres de lugares o puntos de referencia.
+                        </p>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Mostrar info de GPS si se selecciona esa opción
+    function actualizarModo() {
+        const modoManual = document.getElementById('modoManual');
+        const modoGps = document.getElementById('modoGps');
+        const modoInput = document.getElementById('modoInput');
+        const gpsInfo = document.getElementById('gpsInfo');
+
+        if (modoGps.checked) {
+            modoInput.value = 'gps';
+            gpsInfo.style.display = 'block';
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (pos) {
+                    document.getElementById('latInput').value = pos.coords.latitude;
+                    document.getElementById('lonInput').value = pos.coords.longitude;
+                });
+            }
+        } else {
+            modoInput.value = 'manual';
+            gpsInfo.style.display = 'none';
+        }
+    }
+
+    document.getElementById('modoManual').addEventListener('change', actualizarModo);
+    document.getElementById('modoGps').addEventListener('change', actualizarModo);
+
+    // Ejecutar al cargar la página para setear el estado inicial
+    actualizarModo();
+</script>
+
+{% endblock %}
