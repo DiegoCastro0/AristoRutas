@@ -25,10 +25,22 @@
 }
 
 /* ===================================== */
-/* Cards de rutas */
+/* Contenedor de tarjetas */
 /* ===================================== */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;   /* Centra horizontalmente */
+  gap: 20px;
+  margin-top: 40px;
+}
+
+/* Tarjetas de rutas */
 .ruta-card {
-  height: 260px;
+  height: 420px;               /* Más alto para destacar */
+  max-width: 480px;            /* Más ancho para mayor presencia */
+  width: 100%;                 /* Ocupa todo el ancho disponible */
+  margin: 0 auto;              /* Centrada horizontalmente */
   border-radius: 18px;
   position: relative;
   overflow: hidden;
@@ -37,26 +49,26 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  /* Nitidez aumentada */
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
   image-rendering: high-quality;
 
-  /* Brillo mejorado */
   filter: brightness(1.10) contrast(1.05);
-
-  transition: 
-    transform .3s ease,
-    box-shadow .3s ease,
-    filter .3s ease;
-
+  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, .5);
+}
+
+
+.ruta-card.single {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto; /* centrada */
 }
 
 /* ANIMACIÓN HOVER */
 .ruta-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 45px rgba(0, 0, 0, .75);
+  box-shadow: 0 15px 60px rgba(0, 23, 151, 0.75);
 
   /* Brillo dinámico al pasar el mouse */
   filter: brightness(1.18) contrast(1.09) saturate(1.08);
@@ -78,10 +90,10 @@
   position: absolute;
   bottom: 30px;
   left: 20px;
+  right: 20px;
   z-index: 2;
   color: #ffffff;
 }
-
 .card-info h3 {
   font-size: 1.4rem;
   font-weight: 700;
@@ -92,9 +104,7 @@
   text-shadow: 0 2px 4px rgba(0,0,0,.8);
 }
 
-/* ===================================== */
-/* Modales estilo oscuro */
-/* ===================================== */
+
 .modal-dark {
   background: #1a1a1a;
   color: #fff;
@@ -126,9 +136,15 @@
   transform: translateY(0);
 }
 
-/* ===================================== */
-/* Ajustes responsivos */
-/* ===================================== */
+/* Centrado absoluto del modal en pantalla */
+.modal-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* ocupa toda la altura de la pantalla */
+}
+
+
 @media (max-width: 768px) {
   .ruta-card {
     height: 220px;
@@ -144,7 +160,7 @@
 
 /* Botón personalizado */
 .btn-custom {
-    background-color: #257edd;   /* azul base */
+    background-color: #090c97 !important;
     color: #fff;               
     font-weight: 600;
     padding: 8px 20px;
@@ -156,24 +172,24 @@
 
 /* Hover: cuando pasas el mouse */
 .btn-custom:hover {
-    background-color: #1a453c;   /* verde agua brillante */
-    color: #fff;                
+    background-color: #03a6ac !important;   /* verde agua brillante */
+    color: #0c0c0c !important;                
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 /* Active: mientras mantienes presionado */
 .btn-custom:active {
-    background-color: #16a085;   
-    color: #fff;
+    background-color: #0026ff !important;   
+    color: #000000 !important;
     transform: scale(0.95);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* Focus: queda marcado después del click */
 .btn-custom:focus {
-    background-color: #16a085;
-    color: #fff;
+    background-color: #01025f !important;
+    color: #00c3ff !important;
     transform: scale(0.95);
     box-shadow: 0 2px 6px rgba(0,0,0,0.5);
     outline: none;

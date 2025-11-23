@@ -3,54 +3,50 @@
 
 {% block content %}
 
-    <link rel="stylesheet" href="{% static '/css/diserutas.css' %}">
+<link rel="stylesheet" href="{% static '/css/diserutas.css' %}">
 
-    <main class="container" style="padding-top: 110px; padding-bottom: 50px;">
-        
-        <h1 class="text-center text-light fw-bold mb-4">Categorías de Rutas</h1>
-        <p class="text-center text-light lead mb-5">Seleccione el tipo de rutas que desea ver.</p>
+<main class="container" style="padding-top: 110px; padding-bottom: 50px;">
     
-        <div class="row g-4">
-    
-            <div class="col-md-6">
-                <div class="ruta-card" style="background-image: url(/static/img/buses/images.jpg)">
-                    <div class="overlay"></div>
-                    <div class="card-info">
-                        <h3>Rutas Urbanas</h3>
-                        <p>Rutas dentro del municipio de San Miguel.</p>
-                        <a href="{% url 'urbanas' %}" class="btn-custom btn-sm   mt-2"> Ver urbanas</a>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col-md-6">
-                <div class="ruta-card" style="background-image: url(/static/img/buses/13.jpg)">
-                    <div class="overlay"></div>
-                    <div class="card-info">
-                        <h3>Rutas Departamentales</h3>
-                        <p>Conectan municipios dentro del mismo departamento.</p>
-                       <a href="{% url 'interdepartamentales' %}" class="btn-custom btn-sm mt-2"> Ver departamentales</a>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col-md-6">
-                <div class="ruta-card" style="background-image: url(/static/img/buses/333.jpg)">
-                    <div class="overlay"></div>
-                    <div class="card-info">
-                        <h3>Rutas Interurbanas</h3>
-                        <p>Conectan diferentes departamentos del país.</p>
-                        <a href="{% url 'interurbanas' %}" class="btn-custom btn-sm   mt-2"> Ver interurbanas</a>
-                    </div>
-                </div>
-            </div>
-    
-        </div>
-    
-        <div class="text-center mt-5">
-            <a href="{% url 'sugerencias' %}" class="btn btn-primary btn-lg">Sugerencias</a>
-        </div>
-        
-    </main>
+    <h1 class="text-center text-light fw-bold mb-4">Categorías de Rutas</h1>
+    <p class="text-center text-light lead mb-5">Seleccione el tipo de rutas que desea ver.</p>
 
+   <div class="row g-4 justify-content-center">
+
+  <!-- Tarjeta 1 -->
+  <div class="col-md-6 d-flex justify-content-center">
+    <div class="ruta-card" style="background-image: url(/static/img/buses/112.jpg)">
+      <div class="overlay"></div>
+      <div class="card-info">
+        <h3>Rutas Urbanas</h3>
+        <p>Rutas dentro del municipio de San Miguel.</p>
+        <a href="{% url 'urbanas' %}" class="btn-custom btn-sm mt-2">Ver urbanas</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta 2 -->
+  <div class="col-md-6 d-flex justify-content-center">
+    <div class="ruta-card" style="background-image: url(/static/img/buses/ruta13.png)">
+      <div class="overlay"></div>
+      <div class="card-info">
+        <h3>Rutas Departamentales</h3>
+        <p>Conectan municipios dentro del mismo departamento.</p>
+        <a href="{% url 'interdepartamentales' %}" class="btn-custom btn-sm mt-2">Ver departamentales</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta 3 centrada debajo -->
+  <div class="col-12 d-flex justify-content-center">
+    <div class="ruta-card" style="background-image: url(/static/img/buses/Bus-berlin.jpg)">
+      <div class="overlay"></div>
+      <div class="card-info">
+        <h3>Rutas Interurbanas</h3>
+        <p>Conectan diferentes departamentos del país.</p>
+        <a href="{% url 'interurbanas' %}" class="btn-custom btn-sm mt-2">Ver interurbanas</a>
+      </div>
+    </div>
+  </div>
+
+</div>
 {% endblock %}
