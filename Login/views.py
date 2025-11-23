@@ -5,13 +5,12 @@ from django.contrib import messages
 
 Usuario = get_user_model()
 
-# LOGIN
+# --- LOGIN ---
 def login_view(request):
     if request.method == 'POST':
         usuario = request.POST.get('usuario')
         clave = request.POST.get('clave')
 
-        # Autenticación usando el campo 'usuario'
         user = authenticate(request, usuario=usuario, password=clave)
         if user is not None:
             login(request, user)
@@ -20,8 +19,7 @@ def login_view(request):
             messages.error(request, "Usuario o contraseña incorrectos.")
     return render(request, 'login.html', {'modo': 'login'})
 
-
-# REGISTRO
+# --- REGISTRO ---
 def registro_view(request):
     if request.method == 'POST':
         usuario = request.POST.get('usuario')
@@ -36,8 +34,7 @@ def registro_view(request):
 
     return render(request, 'login.html', {'modo': 'registro'})
 
-
-# LOGOUT
+# --- LOGOUT MANUAL (El que arregla el error 405) ---
 def logout_view(request):
     logout(request)
     return redirect('iniciar_sesion')
