@@ -1,12 +1,12 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
 from MenuP import views as menu_views
 from Rutas import views as rutas_views
-from Login import views as login_views
+from Login import views as login_views 
 from QuienesSomos import views as quienes_views
 from Servicios import views as Servicios_views
 from Rutas import views as Rutas_views
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,7 +16,12 @@ urlpatterns = [
     # Login y registro
     path('login/', login_views.login_view, name='iniciar_sesion'),
     path('registro/', login_views.registro_view, name='registro'),
-    path('logout/', login_views.logout_view, name='logout'),
+    
+    # USAMOS TU FUNCIÓN MANUAL (Esto arregla el error Method Not Allowed)
+    path('logout/', login_views.logout_view, name='salir'),
+
+    # Esto habilita SOLO el cambio de contraseña
+    path('accounts/', include('django.contrib.auth.urls')),
 
     # Otras vistas
     path('quienes_somos/', quienes_views.Quienes, name='quienes'),
@@ -26,5 +31,4 @@ urlpatterns = [
     path('Rutas/sugerencias/', rutas_views.sugerencias, name='sugerencias'),
     path('Servicios/', Servicios_views.upgrade_plan, name='upgrade_plan'),
     path('Rutas/donde-voy/', Rutas_views.donde_voy, name='donde_voy'),
-
 ]
