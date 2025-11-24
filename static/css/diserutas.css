@@ -118,7 +118,11 @@
 /* Modal más grande */
 .modal-dialog {
   margin: 30px auto;
-  max-width: 900px;   /* ancho más grande */
+  max-width: 1200px;   /* ancho más grande */
+}
+
+.modal-dialog.modal-dialog-scrollable .modal-body iframe {
+  margin-bottom: 20px;
 }
 
 .modal-header {
@@ -130,10 +134,11 @@
 
 /* Contenido más alto */
 .modal-body {
-  max-height: 80vh;   /* más alto que antes */
+  max-height: 80vh ;
   overflow-y: auto;
-  font-size: 1.1rem;  /* texto más grande */
+  font-size: 1.1rem;
   line-height: 1.6;
+  padding-bottom: 20px; /* <-- agrega espacio abajo */
 }
 
 /* ===================================== */

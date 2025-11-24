@@ -11,12 +11,26 @@ def Rutas(request):
 
 
 def urbanas(request):
-    rutas = RutaBus.objects.filter(tipo='Urbana', estado='Activa')
+    rutas_list = RutaBus.objects.filter(tipo='Urbana', estado='Activa').order_by('id')
+    paginator = Paginator(rutas_list, 4)
+
+    page_number = request.GET.get('page')
+    rutas = paginator.get_page(page_number)
+
     return render(request, 'urbanas.html', {'rutas': rutas})
 
 
+
 def interurbanas(request):
-    rutas = RutaBus.objects.filter(tipo='Interurbana', estado='Activa')
+    rutas_list = RutaBus.objects.filter(
+        tipo='Interurbana',
+        estado='Activa'
+    ).order_by('id')
+
+    paginator = Paginator(rutas_list, 4)  # 4 rutas por página
+    page_number = request.GET.get('page')
+    rutas = paginator.get_page(page_number)
+
     return render(request, 'Interurbanas.html', {'rutas': rutas})
 
 
