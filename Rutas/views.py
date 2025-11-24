@@ -84,7 +84,7 @@ def donde_voy(request):
             )
 
         if modo == 'gps' and lat and lon:
-            # lógica futura con coordenadas
+            # lógica futura con coordenadas 
             pass
 
         rutas_sugeridas = qs.distinct()
