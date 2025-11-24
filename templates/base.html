@@ -39,7 +39,7 @@
                         {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-warning fw-bold" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    ¡Hola, {{ user.username }}!
+                                    ¡Hola, {{ user.get_username }}!
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow" aria-labelledby="navbarUserDropdown">
                                     

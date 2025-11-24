@@ -8,13 +8,10 @@
   background-repeat: no-repeat;
   position: relative;
   min-height: 100vh;
-
-  /* Mejoras visuales */
   filter: brightness(1.12) contrast(1.07) saturate(1.05);
   image-rendering: optimizeQuality;
 }
 
-/* Oscurecimiento suave del fondo */
 .fondo::before {
   content: "";
   position: absolute;
@@ -25,67 +22,44 @@
 }
 
 /* ===================================== */
-/* Contenedor de tarjetas */
+/* Tarjetas */
 /* ===================================== */
 .cards-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;   /* Centra horizontalmente */
+  justify-content: center;
   gap: 20px;
   margin-top: 40px;
 }
 
-/* Tarjetas de rutas */
 .ruta-card {
-  height: 420px;               /* Más alto para destacar */
-  max-width: 480px;            /* Más ancho para mayor presencia */
-  width: 100%;                 /* Ocupa todo el ancho disponible */
-  margin: 0 auto;              /* Centrada horizontalmente */
+  height: 420px;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
   border-radius: 18px;
   position: relative;
   overflow: hidden;
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  image-rendering: high-quality;
-
   filter: brightness(1.10) contrast(1.05);
   transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, .5);
 }
 
-
-.ruta-card.single {
-  width: 100%;
-  max-width: 320px;
-  margin: 0 auto; /* centrada */
-}
-
-/* ANIMACIÓN HOVER */
 .ruta-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 60px rgba(0, 23, 151, 0.75);
-
-  /* Brillo dinámico al pasar el mouse */
   filter: brightness(1.18) contrast(1.09) saturate(1.08);
 }
 
-/* Gradiente oscuro encima de la imagen */
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, .15),
-    rgba(0, 0, 0, .70)
-  );
+  background: linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.70));
 }
 
-/* Información dentro de la tarjeta */
 .card-info {
   position: absolute;
   bottom: 30px;
@@ -99,20 +73,18 @@
   font-weight: 700;
   margin-bottom: 5px;
   text-transform: uppercase;
-
-  /* Texto más nítido */
   text-shadow: 0 2px 4px rgba(0,0,0,.8);
 }
 
-
+/* ===================================== */
+/* Modal grande */
+/* ===================================== */
 .modal-dark {
   background: #1a1a1a;
   color: #fff;
   border-radius: 14px;
   border: none;
   box-shadow: 0 12px 40px rgba(0, 0, 0, .7);
-
-  /* Mejora visual modal */
   filter: brightness(1.05);
 }
 
@@ -126,71 +98,89 @@
   filter: invert(1);
 }
 
-/* Animaciones del modal */
+/* Animaciones */
 .modal.fade .modal-dialog {
   transform: translateY(-20px);
   transition: transform .35s ease, opacity .35s ease;
 }
-
 .modal.show .modal-dialog {
   transform: translateY(0);
 }
 
-/* Centrado absoluto del modal en pantalla */
-.modal-dialog {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh; /* ocupa toda la altura de la pantalla */
+/* Que el modal siga el scroll */
+.modal {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
+/* Modal más grande */
+.modal-dialog {
+  margin: 30px auto;
+  max-width: 900px;   /* ancho más grande */
+}
 
+.modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 1055;
+  background-color: #212529;
+}
+
+/* Contenido más alto */
+.modal-body {
+  max-height: 80vh;   /* más alto que antes */
+  overflow-y: auto;
+  font-size: 1.1rem;  /* texto más grande */
+  line-height: 1.6;
+}
+
+/* ===================================== */
+/* Responsive */
+/* ===================================== */
 @media (max-width: 768px) {
   .ruta-card {
     height: 220px;
-
-    /* Aumentar brillo en pantallas pequeñas */
     filter: brightness(1.22);
   }
-
   .card-info h3 {
     font-size: 1.2rem;
   }
+  .modal-dialog {
+    max-width: 95%; /* ocupa casi toda la pantalla en móviles */
+  }
 }
 
+/* ===================================== */
 /* Botón personalizado */
+/* ===================================== */
 .btn-custom {
-    background-color: #090c97 !important;
-    color: #fff;               
-    font-weight: 600;
-    padding: 8px 20px;
-    border-radius: 6px;
-    border: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
+  background-color: #090c97 !important;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 24px; /* más grande */
+  border-radius: 6px;
+  border: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
-
-/* Hover: cuando pasas el mouse */
 .btn-custom:hover {
-    background-color: #03a6ac !important;   /* verde agua brillante */
-    color: #0c0c0c !important;                
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  background-color: #03a6ac !important;
+  color: #0c0c0c !important;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
-
-/* Active: mientras mantienes presionado */
 .btn-custom:active {
-    background-color: #0026ff !important;   
-    color: #000000 !important;
-    transform: scale(0.95);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  background-color: #0026ff !important;
+  color: #000000 !important;
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
-
-/* Focus: queda marcado después del click */
 .btn-custom:focus {
-    background-color: #01025f !important;
-    color: #00c3ff !important;
-    transform: scale(0.95);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-    outline: none;
+  background-color: #01025f !important;
+  color: #00c3ff !important;
+  transform: scale(0.95);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  outline: none;
 }

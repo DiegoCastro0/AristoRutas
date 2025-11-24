@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
-
+from django.core.paginator import Paginator
 from .models import Sugerencia, RutaBus
 
 
@@ -21,7 +21,16 @@ def interurbanas(request):
 
 
 def interdepartamentales(request):
-    rutas = RutaBus.objects.filter(tipo='Interdepartamental', estado='Activa')
+
+    rutas_list = RutaBus.objects.filter(tipo='Interdepartamental', estado='Activa').order_by('id')
+    paginator = Paginator(rutas_list, 4)
+
+    page_number = request.GET.get('page')
+
+
+    rutas = paginator.get_page(page_number)
+
+
     return render(request, 'interdepartamentales.html', {'rutas': rutas})
 
 
