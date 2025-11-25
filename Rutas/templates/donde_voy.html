@@ -130,33 +130,71 @@
 </section>
 
 <script>
-    // Mostrar info de GPS si se selecciona esa opción
     function actualizarModo() {
         const modoManual = document.getElementById('modoManual');
         const modoGps = document.getElementById('modoGps');
         const modoInput = document.getElementById('modoInput');
         const gpsInfo = document.getElementById('gpsInfo');
+        const origenInput = document.getElementById('origenInput');
 
         if (modoGps.checked) {
             modoInput.value = 'gps';
             gpsInfo.style.display = 'block';
+            origenInput.value = "Detectando ubicación...";
+            origenInput.readOnly = true;
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (pos) {
                     document.getElementById('latInput').value = pos.coords.latitude;
                     document.getElementById('lonInput').value = pos.coords.longitude;
+
+                    // Geocodificación inversa con Nominatim (OpenStreetMap)
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const addr = data.address;
+                            let lugar = "";
+
+                            // Priorizar puntos de interés
+                            if (addr.university) {
+                                lugar = addr.university;
+                            } else if (addr.school) {
+                                lugar = addr.school;
+                            } else if (addr.hospital) {
+                                lugar = addr.hospital;
+                            } else if (addr.city) {
+                                lugar = addr.city;
+                            } else if (addr.town) {
+                                lugar = addr.town;
+                            } else if (addr.village) {
+                                lugar = addr.village;
+                            } else if (addr.suburb) {
+                                lugar = addr.suburb;
+                            } else if (addr.neighbourhood) {
+                                lugar = addr.neighbourhood;
+                            } else {
+                                lugar = data.display_name; // fallback
+                            }
+
+                            origenInput.value = lugar;
+                        })
+                        .catch(error => {
+                            console.error("Error obteniendo nombre de ubicación:", error);
+                            origenInput.value = "Ubicación detectada";
+                        });
                 });
             }
         } else {
             modoInput.value = 'manual';
             gpsInfo.style.display = 'none';
+            origenInput.readOnly = false;
+            origenInput.value = "";
         }
     }
 
     document.getElementById('modoManual').addEventListener('change', actualizarModo);
     document.getElementById('modoGps').addEventListener('change', actualizarModo);
 
-    // Ejecutar al cargar la página para setear el estado inicial
     actualizarModo();
 </script>
 
