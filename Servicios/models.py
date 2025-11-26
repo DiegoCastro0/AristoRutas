@@ -19,5 +19,8 @@ class Pago(models.Model):
     fecha_pago = models.DateTimeField(auto_now_add=True)  # Se guarda automáticamente al crear el registro
     verificado = models.BooleanField(default=False)  # Estado de validación del pago
 
+    class Meta:
+        db_table = "servicios_pago"   # nombre explícito de la tabla
+
     def __str__(self):
         return f"Pago {self.referencia} - Usuario {self.usuario.id} - {self.monto}"

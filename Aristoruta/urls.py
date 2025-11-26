@@ -7,6 +7,8 @@ from Login import views as login_views
 from QuienesSomos import views as quienes_views
 from Servicios import views as Servicios_views
 from Rutas import views as Rutas_views
+from Rutas import views as Reportes_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,4 +33,5 @@ urlpatterns = [
     path('Rutas/sugerencias/', rutas_views.sugerencias, name='sugerencias'),
     path('Servicios/', Servicios_views.upgrade_plan, name='upgrade_plan'),
     path('Rutas/donde-voy/', Rutas_views.donde_voy, name='donde_voy'),
+    path('Rutas/reportes', Reportes_views.reportes, name='reportes'),
 ]

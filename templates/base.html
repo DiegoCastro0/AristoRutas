@@ -35,6 +35,13 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'donde_voy' %}">¿A dónde voy?</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'upgrade_plan' %}">Servicios</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'quienes' %}">Quienes Somos</a></li>
+
+                        {% if plan == "Premium Avanzado" or plan == "Premium Institucional" %}
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
+                          </li>
+                        {% endif %}
+
                         
                         {% if user.is_authenticated %}
                             <li class="nav-item dropdown">

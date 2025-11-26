@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="text-center">
+    <h2>📊 Reportes de Rutas</h2>
+
+    {% if plan == "Premium Avanzado" or plan == "Premium Institucional" %}
+      <p>Total de rutas: {{ data.total_rutas }}</p>
+      <p>Rutas activas: {{ data.rutas_activas }}</p>
+      <p>Rutas inactivas: {{ data.rutas_inactivas }}</p>
+
+      <!-- Aquí puedes añadir gráficos, tablas o exportaciones -->
+      <a href="#" class="btn btn-success">Descargar reporte en PDF</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,18 +1,22 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.contrib import messages
 from .models import Pago
 from decimal import Decimal
 import uuid
 
 def upgrade_plan(request):
     if request.method == "POST":
+        # Verificar si el usuario está autenticado
+        if not request.user.is_authenticated:
+            # Mensaje remarcado en el modal
+            messages.error(request, "⚠️ Debes iniciar sesión para acceder a servicios.")
+            return render(request, "upgrade_plan.html")
+
         plan = request.POST.get("plan")
-        nombre = request.POST.get("nombre")
-        correo = request.POST.get("correo")
         tarjeta = request.POST.get("tarjeta")
         vencimiento = request.POST.get("vencimiento")
         cvv = request.POST.get("cvv")
 
-        # Generar referencia única
         referencia = str(uuid.uuid4())
 
         # Asignar monto según plan
@@ -25,16 +29,12 @@ def upgrade_plan(request):
         else:
             monto = Decimal("0.00")
 
-        # 🔎 Simulación de verificación bancaria
-        # Regla simple: si la tarjeta empieza con "4111" y el CVV es "123", se aprueba
-        if tarjeta.startswith("4111") and cvv == "123":
-            verificado = True
-        else:
-            verificado = False
+        # Simulación de verificación bancaria
+        verificado = tarjeta.startswith("4111") and cvv == "123"
 
-        # Crear registro en la BD con estado de verificación
+        # Crear registro en la BD
         Pago.objects.create(
-            usuario=request.user,   # requiere que el usuario esté autenticado
+            usuario=request.user,
             plan=plan,
             monto=monto,
             metodo="Tarjeta",
@@ -42,8 +42,7 @@ def upgrade_plan(request):
             verificado=verificado
         )
 
-        # Redirigir a la misma página o a una de confirmación
-        return redirect("upgrade_plan")
+        messages.success(request, "✅ Tu pago ha sido registrado.")
+        return render(request, "upgrade_plan.html")
 
-    # Si es GET, solo renderiza la plantilla
     return render(request, "upgrade_plan.html")

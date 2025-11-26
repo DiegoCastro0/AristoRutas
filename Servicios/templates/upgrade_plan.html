@@ -92,6 +92,35 @@
             </div>
             <div class="modal-body">
                 <form method="POST" action="{% url 'upgrade_plan' %}">
+                    <div class="modal-body">
+
+<div class="modal-body">
+
+    <!-- Bloque de mensajes -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} text-center mb-3" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="alert alert-warning text-center mb-3" role="alert">
+        ⚠️ Debes iniciar sesión para acceder a servicios.
+      </div>
+    {% endif %}
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    {% if messages %}
+        var modal = new bootstrap.Modal(document.getElementById('formularioPago'));
+        modal.show();
+    {% endif %}
+});
+</script>
+
+
     {% csrf_token %}
     <div class="mb-3">
         <label for="plan" class="form-label">Selecciona tu plan</label>
@@ -140,7 +169,6 @@
             audio.currentTime = 0;
             audio.play().catch(error => console.log("Error al reproducir audio:", error));
         }
-        // Usamos bootstrap.Modal (Bootstrap ya está cargado en base.html)
         const modal = new bootstrap.Modal(document.getElementById('formularioPago'));
         modal.show();
     }

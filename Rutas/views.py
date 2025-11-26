@@ -4,7 +4,15 @@ from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import Sugerencia, RutaBus
+from Servicios.models import Pago
+from django.core.paginator import Paginator
+from Rutas.models import RutaBus
 
+def obtener_plan_activo(usuario):
+    if not getattr(usuario, "is_authenticated", False):
+        return "Gratuito"
+    pago = Pago.objects.filter(usuario=usuario, verificado=True).order_by('-fecha_pago').first()
+    return pago.plan if pago else "Gratuito"
 
 def Rutas(request):
     return render(request, 'rutas.html')
@@ -13,39 +21,43 @@ def Rutas(request):
 def urbanas(request):
     rutas_list = RutaBus.objects.filter(tipo='Urbana', estado='Activa').order_by('id')
     paginator = Paginator(rutas_list, 4)
+    rutas = paginator.get_page(request.GET.get('page'))
 
-    page_number = request.GET.get('page')
-    rutas = paginator.get_page(page_number)
-
-    return render(request, 'urbanas.html', {'rutas': rutas})
-
-
+    plan = obtener_plan_activo(request.user)
+    return render(request, 'urbanas.html', {'rutas': rutas, 'plan': plan})
 
 def interurbanas(request):
-    rutas_list = RutaBus.objects.filter(
-        tipo='Interurbana',
-        estado='Activa'
-    ).order_by('id')
+    rutas_list = RutaBus.objects.filter(tipo='Interurbana', estado='Activa').order_by('id')
+    paginator = Paginator(rutas_list, 4)
+    rutas = paginator.get_page(request.GET.get('page'))
 
-    paginator = Paginator(rutas_list, 4)  # 4 rutas por página
-    page_number = request.GET.get('page')
-    rutas = paginator.get_page(page_number)
-
-    return render(request, 'Interurbanas.html', {'rutas': rutas})
-
+    plan = obtener_plan_activo(request.user)
+    return render(request, 'interurbanas.html', {'rutas': rutas, 'plan': plan})
 
 def interdepartamentales(request):
-
     rutas_list = RutaBus.objects.filter(tipo='Interdepartamental', estado='Activa').order_by('id')
     paginator = Paginator(rutas_list, 4)
+    rutas = paginator.get_page(request.GET.get('page'))
 
-    page_number = request.GET.get('page')
+    plan = obtener_plan_activo(request.user)
+    return render(request, 'interdepartamentales.html', {'rutas': rutas, 'plan': plan})
 
+@login_required
+def reportes(request):
+    plan = obtener_plan_activo(request.user)
 
-    rutas = paginator.get_page(page_number)
+    if plan not in ["Premium Avanzado", "Premium Institucional"]:
+        messages.error(request, "Tu plan no permite acceder al apartado de reportes.")
+        return redirect("rutas")  # redirige a rutas si no tiene acceso
 
+    # Aquí puedes preparar la información de reportes
+    data = {
+        "total_rutas": 50,  # ejemplo
+        "rutas_activas": 40,
+        "rutas_inactivas": 10,
+    }
 
-    return render(request, 'interdepartamentales.html', {'rutas': rutas})
+    return render(request, "reportes.html", {"plan": plan, "data": data})
 
 
 @login_required
