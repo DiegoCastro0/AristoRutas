@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Usuarios.context_processors.user_plan',
             ],
         },
     },
@@ -93,8 +94,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'AristoRutas',
-        'USER': 'cris_admin',
-        'PASSWORD': 'usuario123!',
+        'USER': 'Usuarios',
+        'PASSWORD': 'usuario123',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -126,6 +127,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static",]
+
 
 
 # Default primary key field type

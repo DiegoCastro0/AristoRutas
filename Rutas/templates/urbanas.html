@@ -93,33 +93,31 @@
                 <p><strong>Origen:</strong> {{ ruta.origen }}</p>
                 <p><strong>Destino:</strong> {{ ruta.destino }}</p>
 
-            <!-- Todo desde Premium Básico en adelante -->
+            <!-- Tarifa: para cualquier plan de pago (no Gratuito) -->
             {% if plan != "Gratuito" %}
-                     <p><strong>Tarifa:</strong> ${{ ruta.tarifa }}</p>
-
-                 {% if ruta.paradas %}
-                     <p><strong>Paradas:</strong> {{ ruta.paradas|join:", " }}</p>
-                 {% endif %}
-
-                 {% if ruta.link %}
-                     <iframe src="{{ ruta.link }}" width="100%" height="500" style="border:0;" allowfullscreen loading="lazy"></iframe>
-                 {% endif %}
+                <p><strong>Tarifa:</strong> ${{ ruta.tarifa }}</p>
             {% endif %}
 
-                <!-- Solo Premium Avanzado en adelante -->
-               {% if plan == "Premium Avanzado" or plan == "Premium Institucional" %}
-                     <li class="nav-item">
-                     <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
-                     </li>
-               {% endif %}
-
-
-                <!-- Solo Premium Institucional -->
-                {% if plan == "Premium Institucional" %}
-                    {% if ruta.link %}
-                        <iframe src="{{ ruta.link }}" width="100%" height="500" style="border:0;" allowfullscreen loading="lazy"></iframe>
-                    {% endif %}
+            <!-- Paradas: para cualquier plan de pago (no Gratuito) -->
+            {% if plan != "Gratuito" %}
+                {% if ruta.paradas %}
+                    <p><strong>Paradas:</strong> {{ ruta.paradas|join:", " }}</p>
                 {% endif %}
+            {% endif %}
+
+            <!-- Mapa (iframe): para cualquier plan de pago (no Gratuito), incluye Premium Básico -->
+            {% if plan != "Gratuito" %}
+                {% if ruta.link %}
+                    <iframe src="{{ ruta.link }}" width="100%" height="500" style="border:0;" allowfullscreen loading="lazy"></iframe>
+                {% endif %}
+            {% endif %}
+
+            <!-- Link a reportes: solo Premium Avanzado en adelante -->
+            {% if plan == "Premium Avanzado" or plan == "Premium Institucional" %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
+                </li>
+            {% endif %}
 
                 <!-- Mensaje para Gratuito -->
                 {% if plan == "Gratuito" %}

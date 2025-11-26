@@ -25,6 +25,9 @@ urlpatterns = [
     # Esto habilita SOLO el cambio de contraseña
     path('accounts/', include('django.contrib.auth.urls')),
 
+    # Perfil de usuario
+    path('perfil/', login_views.perfil_view, name='perfil'),
+
     # Otras vistas
     path('quienes_somos/', quienes_views.Quienes, name='quienes'),
     path('Rutas/urbanas/', rutas_views.urbanas, name='urbanas'),
@@ -35,3 +38,4 @@ urlpatterns = [
     path('Rutas/donde-voy/', Rutas_views.donde_voy, name='donde_voy'),
     path('Rutas/reportes', Reportes_views.reportes, name='reportes'),
 ]
+

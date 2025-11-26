@@ -11,7 +11,9 @@ from Rutas.models import RutaBus
 def obtener_plan_activo(usuario):
     if not getattr(usuario, "is_authenticated", False):
         return "Gratuito"
-    pago = Pago.objects.filter(usuario=usuario, verificado=True).order_by('-fecha_pago').first()
+    # No requerimos que el pago esté marcado como verificado aquí;
+    # si existe un pago reciente, lo tomamos como plan activo.
+    pago = Pago.objects.filter(usuario=usuario).order_by('-fecha_pago').first()
     return pago.plan if pago else "Gratuito"
 
 def Rutas(request):

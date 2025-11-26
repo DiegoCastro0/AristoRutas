@@ -84,20 +84,20 @@
                 <p><strong>Origen:</strong> {{ ruta.origen }}</p>
                 <p><strong>Destino:</strong> {{ ruta.destino }}</p>
 
-                <!-- Solo Premium Básico en adelante -->
-                {% if plan == "Premium Básico" or plan == "Premium Avanzado" or plan == "Premium Institucional" %}
+                <!-- Tarifa: para cualquier plan de pago (no Gratuito) -->
+                {% if plan != "Gratuito" %}
                     <p><strong>Tarifa:</strong> ${{ ruta.tarifa }}</p>
                 {% endif %}
 
-                <!-- Solo Premium Avanzado en adelante -->
-                {% if plan == "Premium Avanzado" or plan == "Premium Institucional" %}
+                <!-- Paradas: para cualquier plan de pago (no Gratuito) -->
+                {% if plan != "Gratuito" %}
                     {% if ruta.paradas %}
                         <p><strong>Paradas:</strong> {{ ruta.paradas|join:", " }}</p>
                     {% endif %}
                 {% endif %}
 
-                <!-- Solo Premium Institucional -->
-                {% if plan == "Premium Institucional" %}
+                <!-- Mapa (iframe): para cualquier plan de pago (no Gratuito), incluye Premium Básico -->
+                {% if plan != "Gratuito" %}
                     {% if ruta.link %}
                         <iframe src="{{ ruta.link }}" width="100%" height="500" style="border:0;" allowfullscreen loading="lazy"></iframe>
                     {% endif %}
