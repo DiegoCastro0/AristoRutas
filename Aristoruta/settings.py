@@ -15,8 +15,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "insecure-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["*"]  # puedes poner tu dominio personalizado aquí
-
+ALLOWED_HOSTS = ["aristorutas.up.railway.app"]
 
 # Application definition
 INSTALLED_APPS = [
