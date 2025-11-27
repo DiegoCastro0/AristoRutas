@@ -90,16 +90,16 @@ WSGI_APPLICATION = 'Aristoruta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import os
+from decouple import Config, RepositoryEnv
+import dj_database_url
+# Cargar conexion.env
+config = Config(RepositoryEnv('conexion.env'))
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'AristoRutas',
-        'USER': 'Usuarios',
-        'PASSWORD': 'usuario123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.parse(config('DATABASE_URL'))
 }
+
 
 
 # Password validation
