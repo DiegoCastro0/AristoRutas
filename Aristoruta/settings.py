@@ -6,22 +6,20 @@ from pathlib import Path
 import os
 import dj_database_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Rutas base del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# Seguridad
 SECRET_KEY = os.getenv("SECRET_KEY", "insecure-key")
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
-    "aristorutas-production.up.railway.app",
+    "aristorutas-production.up.railway.app",  # dominio Railway
     "localhost",
     "127.0.0.1"
 ]
 
-# Application definition
+# Aplicaciones instaladas
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # tus aplicaciones
     'MenuP',
     'Rutas',
     'Usuarios',
@@ -37,12 +36,15 @@ INSTALLED_APPS = [
     'Servicios',
 ]
 
+# Modelo de usuario personalizado
 AUTH_USER_MODEL = 'Usuarios.Usuario'
 
+# Configuración de login/logout
 LOGIN_URL = 'iniciar_sesion'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # sirve archivos estáticos en producción
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Configuración de URLs y templates
 ROOT_URLCONF = 'Aristoruta.urls'
 
 TEMPLATES = [
@@ -75,8 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Aristoruta.wsgi.application'
 
 
-# Database
-# Railway inyecta DATABASE_URL automáticamente
+# Base de datos (Railway inyecta DATABASE_URL automáticamente)
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv("DATABASE_URL")
@@ -84,21 +86,23 @@ DATABASES = {
 }
 
 
-# Password validation
-AUTH_PASSWORD_VALIDATORS = []  # puedes añadir validadores si quieres más seguridad
 
+# Validación de contraseñas
+AUTH_PASSWORD_VALIDATORS = []
 
-# Internationalization
+# Internacionalización
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'America/El_Salvador'
 USE_I18N = True
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
+# Archivos estáticos
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"  # requerido por Whitenoise
+STATICFILES_DIRS = [BASE_DIR / "static"]   # carpeta local de estáticos
+STATIC_ROOT = BASE_DIR / "staticfiles"     # carpeta que Whitenoise sirve en Railway
 
-# Default primary key field type
+# Optimización de archivos estáticos
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Primary key por defecto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

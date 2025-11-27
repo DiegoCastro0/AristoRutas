@@ -1,0 +1,191 @@
+/* ===================================== */
+/* Fondo general */
+/* ===================================== */
+.fondo {
+  background-image: url("../img/fondos.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  min-height: 100vh;
+  filter: brightness(1.12) contrast(1.07) saturate(1.05);
+  image-rendering: optimizeQuality;
+}
+
+.fondo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+}
+
+/* ===================================== */
+/* Tarjetas */
+/* ===================================== */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.ruta-card {
+  height: 420px;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(1.10) contrast(1.05);
+  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .5);
+}
+
+.ruta-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 60px rgba(0, 23, 151, 0.75);
+  filter: brightness(1.18) contrast(1.09) saturate(1.08);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.70));
+}
+
+.card-info {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  right: 20px;
+  z-index: 2;
+  color: #ffffff;
+}
+.card-info h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0,0,0,.8);
+}
+
+/* ===================================== */
+/* Modal grande */
+/* ===================================== */
+.modal-dark {
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 14px;
+  border: none;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .7);
+  filter: brightness(1.05);
+}
+
+.modal-dark .modal-header {
+  border-bottom: none;
+  background: linear-gradient(90deg, #257edd, #8d78ec);
+  color: #fff;
+}
+
+.modal-dark .btn-close {
+  filter: invert(1);
+}
+
+/* Animaciones */
+.modal.fade .modal-dialog {
+  transform: translateY(-20px);
+  transition: transform .35s ease, opacity .35s ease;
+}
+.modal.show .modal-dialog {
+  transform: translateY(0);
+}
+
+/* Que el modal siga el scroll */
+.modal {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Modal más grande */
+.modal-dialog {
+  margin: 30px auto;
+  max-width: 1200px;   /* ancho más grande */
+}
+
+.modal-dialog.modal-dialog-scrollable .modal-body iframe {
+  margin-bottom: 20px;
+}
+
+.modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 1055;
+  background-color: #212529;
+}
+
+/* Contenido más alto */
+.modal-body {
+  max-height: 80vh ;
+  overflow-y: auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  padding-bottom: 20px; /* <-- agrega espacio abajo */
+}
+
+/* ===================================== */
+/* Responsive */
+/* ===================================== */
+@media (max-width: 768px) {
+  .ruta-card {
+    height: 220px;
+    filter: brightness(1.22);
+  }
+  .card-info h3 {
+    font-size: 1.2rem;
+  }
+  .modal-dialog {
+    max-width: 95%; /* ocupa casi toda la pantalla en móviles */
+  }
+}
+
+/* ===================================== */
+/* Botón personalizado */
+/* ===================================== */
+.btn-custom {
+  background-color: #090c97 !important;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 24px; /* más grande */
+  border-radius: 6px;
+  border: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.btn-custom:hover {
+  background-color: #03a6ac !important;
+  color: #0c0c0c !important;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.btn-custom:active {
+  background-color: #0026ff !important;
+  color: #000000 !important;
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.btn-custom:focus {
+  background-color: #01025f !important;
+  color: #00c3ff !important;
+  transform: scale(0.95);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  outline: none;
+}
