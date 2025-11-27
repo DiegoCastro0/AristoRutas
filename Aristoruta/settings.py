@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "insecure-key")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
-    "aristoruta-production.up.railway.app",
+    "aristorutas-production.up.railway.app",
     "localhost",
     "127.0.0.1"
 ]
