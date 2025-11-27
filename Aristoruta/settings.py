@@ -11,12 +11,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Seguridad
 SECRET_KEY = os.getenv("SECRET_KEY", "insecure-key")
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = True   # Forzado a True para ver errores detallados en desarrollo
 
 ALLOWED_HOSTS = [
     "aristorutas-production.up.railway.app",  # dominio Railway
     "localhost",
     "127.0.0.1"
+]
+
+# Dominios confiables para CSRF
+CSRF_TRUSTED_ORIGINS = [
+    "https://aristorutas-production.up.railway.app"
 ]
 
 # Aplicaciones instaladas
@@ -84,8 +89,6 @@ DATABASES = {
         default=os.getenv("DATABASE_URL")
     )
 }
-
-
 
 # Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = []
