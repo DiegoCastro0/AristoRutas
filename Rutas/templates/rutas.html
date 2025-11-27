@@ -11,20 +11,31 @@
     <p class="text-center text-light lead mb-5">Seleccione el tipo de rutas que desea ver.</p>
 
     <!-- BUSCADOR -->
-    <div class="row justify-content-center mb-5">
-        <div class="col-lg-6">
-            <form method="get" action="{% url 'rutas' %}" class="d-flex gap-2">
-                <input type="text" 
-                       name="busqueda" 
-                       class="form-control form-control-lg" 
-                       placeholder="Buscar ruta"
-                       value="{{ busqueda }}">
-                <button type="submit" class="btn btn-primary btn-lg fw-bold">
-                    Buscar
-                </button>
-            </form>
+    {% if plan == "Gratuito" %}
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6">
+                <div class="alert alert-warning text-center">
+                    ⚠️ La búsqueda de rutas está disponible solo con plan Básico o superior.
+                    <br><a href="{% url 'upgrade_plan' %}" class="alert-link">Mejora tu plan</a>
+                </div>
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6">
+                <form method="get" action="{% url 'rutas' %}" class="d-flex gap-2">
+                    <input type="text" 
+                           name="busqueda" 
+                           class="form-control form-control-lg" 
+                           placeholder="Buscar ruta"
+                           value="{{ busqueda }}">
+                    <button type="submit" class="btn btn-primary btn-lg fw-bold">
+                        Buscar
+                    </button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
 
     {% if rutas_busqueda %}
         <!-- RESULTADOS DE BÚSQUEDA -->

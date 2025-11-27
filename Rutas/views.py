@@ -19,6 +19,7 @@ def obtener_plan_activo(usuario):
 def Rutas(request):
     rutas_busqueda = RutaBus.objects.none()
     busqueda = request.GET.get('busqueda', '').strip()
+    plan = obtener_plan_activo(request.user)
 
     if busqueda:
         # Si hay búsqueda, mostrar resultados en lugar de categorías
@@ -36,6 +37,7 @@ def Rutas(request):
     context = {
         'rutas_busqueda': rutas_busqueda,
         'busqueda': busqueda,
+        'plan': plan,
     }
     return render(request, 'rutas.html', context)
 
@@ -72,11 +74,15 @@ def reportes(request):
         messages.error(request, "Tu plan no permite acceder al apartado de reportes.")
         return redirect("rutas")  # redirige a rutas si no tiene acceso
 
-    # Aquí puedes preparar la información de reportes
+    # Obtener datos reales de la base de datos
+    total_rutas = RutaBus.objects.count()
+    rutas_activas = RutaBus.objects.filter(estado='Activa').count()
+    rutas_inactivas = RutaBus.objects.filter(estado='Inactiva').count()
+    
     data = {
-        "total_rutas": 50,  # ejemplo
-        "rutas_activas": 40,
-        "rutas_inactivas": 10,
+        "total_rutas": total_rutas,
+        "rutas_activas": rutas_activas,
+        "rutas_inactivas": rutas_inactivas,
     }
 
     return render(request, "reportes.html", {"plan": plan, "data": data})
@@ -109,6 +115,7 @@ def sugerencias(request):
 
 def donde_voy(request):
     rutas_sugeridas = RutaBus.objects.none()
+    plan = obtener_plan_activo(request.user)
 
     modo = request.GET.get('modo', 'manual')
     origen = request.GET.get('origen', '').strip()
@@ -148,5 +155,6 @@ def donde_voy(request):
         'destino': destino,
         'lat': lat,
         'lon': lon,
+        'plan': plan,
     }
     return render(request, 'donde_voy.html', context)

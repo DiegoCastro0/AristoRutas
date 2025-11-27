@@ -18,6 +18,7 @@
                     Ingresa tu origen y destino o usa tu ubicación actual para que AristoRutas te sugiera rutas de buses.
                 </p>
 
+                {% if plan == "Premium Avanzado" or plan == "Premium Institucional" %}
                 <div class="card bg-dark text-light shadow-lg border-0">
                     <div class="card-body p-4">
 
@@ -81,6 +82,20 @@
 
                     </div>
                 </div>
+                {% else %}
+                <div class="card bg-dark text-light shadow-lg border-0">
+                    <div class="card-body p-4">
+                        <div class="alert alert-warning text-center mb-0">
+                            <h5 class="mb-3">⚠️ Función no disponible</h5>
+                            <p class="mb-3">
+                                La búsqueda avanzada de rutas está disponible solo para planes <strong>Premium Avanzado</strong> o <strong>Premium Institucional</strong>.
+                            </p>
+                            <p class="mb-2">Tu plan actual: <strong>{{ plan }}</strong></p>
+                            <a href="{% url 'upgrade_plan' %}" class="btn btn-primary btn-sm">Mejorar plan</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
 
                 <!-- RESULTADOS -->
                 {% if rutas_sugeridas %}
@@ -206,6 +221,7 @@
 </section>
 
 <script>
+    {% if plan == "Premium Avanzado" or plan == "Premium Institucional" %}
     function actualizarModo() {
         const modoManual = document.getElementById('modoManual');
         const modoGps = document.getElementById('modoGps');
@@ -272,6 +288,7 @@
     document.getElementById('modoGps').addEventListener('change', actualizarModo);
 
     actualizarModo();
+    {% endif %}
 </script>
 
 {% endblock %}

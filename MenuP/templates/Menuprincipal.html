@@ -1,12 +1,176 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <div class="d-flex justify-content-center align-items-center" style="min-height: 100%; padding-top: 80px; padding-bottom: 2rem;">
-        <div class="content-box text-center">
-            <h1 class="display-4">Bienvenido a AristoRutas</h1>
-            <p class="lead" style="text-align: justify;">Tu guía de confianza para explorar El Salvador.</p>
-            <p class="lead" style="text-align: justify;">¡Prepárate para vivir El Salvador de una manera especial con AristoRutas!</p>
-            <a href="{% url 'rutas' %}" class="btn btn-warning btn-lg mt-3">Explorar Rutas</a>
+
+<link rel="stylesheet" href="{% static 'css/diseñoMenuPrincipal.css' %}">
+
+<!-- HERO BANNER -->
+<section class="hero-banner">
+    <div class="hero-content">
+        <h1>Bienvenido a AristoRutas</h1>
+        <p class="subtitle">Tu guía confiable para explorar El Salvador</p>
+        <p class="subtitle">Encuentra la ruta perfecta para tu destino con solo unos clics</p>
+        <a href="{% url 'rutas' %}" class="btn btn-explore btn-lg text-white">
+            🚌 Explorar Rutas Ahora
+        </a>
+    </div>
+</section>
+
+<!-- CARACTERÍSTICAS -->
+<section class="features-section">
+    <div class="container">
+        <h2 class="text-center mb-5" style="font-size: 2.5rem; font-weight: 700;">¿Por qué elegir AristoRutas?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h5 class="mb-3">Información Completa</h5>
+                    <p>Acceso a tarifa, paradas y mapas interactivos de todas las rutas disponibles en El Salvador.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h5 class="mb-3">Búsqueda Inteligente</h5>
+                    <p>Encuentra rutas rápidamente por origen, destino o nombre. Con planes premium, búsqueda por GPS.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h5 class="mb-3">Fácil de Usar</h5>
+                    <p>Interfaz intuitiva y accesible desde cualquier dispositivo. Sin complicaciones, solo resultados.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h5 class="mb-3">Actualizado Constantemente</h5>
+                    <p>Información actualizada diariamente con rutas nuevas, cambios de horarios y tarifas vigentes.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h5 class="mb-3">Cobertura Nacional</h5>
+                    <p>Rutas urbanas, interdepartamentales e interurbanas. Toda El Salvador en un lugar.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h5 class="mb-3">Planes Flexibles</h5>
+                    <p>Desde gratuito hasta premium institucional. Elige el plan que mejor se adapte a ti.</p>
+                </div>
+            </div>
         </div>
     </div>
+</section>
+
+<!-- CARRUSEL DE RUTAS -->
+<section class="carousel-section">
+    <div class="container">
+        <div class="carousel-title">
+            <h2>Rutas Destacadas</h2>
+            <p class="text-muted">Algunas de nuestras rutas más populares</p>
+        </div>
+        
+        <div id="rutasCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="ruta-carousel-card">
+                                <div class="carousel-content">
+                                    <span class="carousel-badge">Urbana</span>
+                                    <h5>Ruta 1 - Centro</h5>
+                                    <p><strong>Origen:</strong> San Miguel Centro</p>
+                                    <p><strong>Destino:</strong> Barrio Guachipilín</p>
+                                    <p><strong>Tarifa:</strong> $0.25</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="ruta-carousel-card ruta-interdepartamental-1">
+                                <div class="carousel-content">
+                                    <span class="carousel-badge">Interdepartamental</span>
+                                    <h5>Ruta 401 - Express</h5>
+                                    <p><strong>Origen:</strong> San Miguel</p>
+                                    <p><strong>Destino:</strong> La Unión</p>
+                                    <p><strong>Tarifa:</strong> $2.50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="ruta-carousel-card ruta-interurbana-1">
+                                <div class="carousel-content">
+                                    <span class="carousel-badge">Interurbana</span>
+                                    <h5>Ruta 79 - Litoral</h5>
+                                    <p><strong>Origen:</strong> San Salvador</p>
+                                    <p><strong>Destino:</strong> Puerto de La Libertad</p>
+                                    <p><strong>Tarifa:</strong> $3.75</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="ruta-carousel-card ruta-urbana-2">
+                                <div class="carousel-content">
+                                    <span class="carousel-badge">Urbana</span>
+                                    <h5>Ruta 5 - Periférico</h5>
+                                    <p><strong>Origen:</strong> San Miguel Sur</p>
+                                    <p><strong>Destino:</strong> San Miguel Norte</p>
+                                    <p><strong>Tarifa:</strong> $0.30</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="ruta-carousel-card ruta-interdepartamental-2">
+                                <div class="carousel-content">
+                                    <span class="carousel-badge">Interdepartamental</span>
+                                    <h5>Ruta 307 - Cabañas</h5>
+                                    <p><strong>Origen:</strong> San Miguel</p>
+                                    <p><strong>Destino:</strong> Sensuntepeque</p>
+                                    <p><strong>Tarifa:</strong> $1.80</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="ruta-carousel-card ruta-interurbana-2">
+                                <div class="carousel-content">
+                                    <span class="carousel-badge">Interurbana</span>
+                                    <h5>Ruta 82 - Fronterizo</h5>
+                                    <p><strong>Origen:</strong> San Miguel</p>
+                                    <p><strong>Destino:</strong> El Amatillo</p>
+                                    <p><strong>Tarifa:</strong> $4.25</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#rutasCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#rutasCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- LLAMADA A LA ACCIÓN -->
+<section class="cta-section">
+    <div class="container">
+        <h2>¿Listo para comenzar?</h2>
+        <p>Encuentra la mejor ruta para tu próximo viaje en El Salvador</p>
+        <a href="{% url 'rutas' %}" class="btn btn-cta">Explorar Todas las Rutas</a>
+    </div>
+</section>
+
 {% endblock %}

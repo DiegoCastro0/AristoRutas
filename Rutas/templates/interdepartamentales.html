@@ -88,30 +88,17 @@
                 <p><strong>Origen:</strong> {{ ruta.origen }}</p>
                 <p><strong>Destino:</strong> {{ ruta.destino }}</p>
 
-                <!-- Tarifa: para cualquier plan de pago (no Gratuito) -->
-                {% if plan != "Gratuito" %}
-                    <p><strong>Tarifa:</strong> ${{ ruta.tarifa }}</p>
+                <!-- Tarifa: visible para todos -->
+                <p><strong>Tarifa:</strong> ${{ ruta.tarifa }}</p>
+
+                <!-- Paradas: visible para todos -->
+                {% if ruta.paradas %}
+                    <p><strong>Paradas:</strong> {{ ruta.paradas|join:", " }}</p>
                 {% endif %}
 
-                <!-- Paradas: para cualquier plan de pago (no Gratuito) -->
-                {% if plan != "Gratuito" %}
-                    {% if ruta.paradas %}
-                        <p><strong>Paradas:</strong> {{ ruta.paradas|join:", " }}</p>
-                    {% endif %}
-                {% endif %}
-
-                <!-- Mapa (iframe): para cualquier plan de pago (no Gratuito), incluye Premium Básico -->
-                {% if plan != "Gratuito" %}
-                    {% if ruta.link %}
-                        <iframe src="{{ ruta.link }}" width="100%" height="500" style="border:0;" allowfullscreen loading="lazy"></iframe>
-                    {% endif %}
-                {% endif %}
-
-                <!-- Mensaje para Gratuito -->
-                {% if plan == "Gratuito" %}
-                    <div class="alert alert-warning mt-3">
-                        ⚠️ Mejora tu plan para ver tarifa, paradas y mapa.
-                    </div>
+                <!-- Mapa (iframe): visible para todos -->
+                {% if ruta.link %}
+                    <iframe src="{{ ruta.link }}" width="100%" height="500" style="border:0;" allowfullscreen loading="lazy"></iframe>
                 {% endif %}
             </div>
         </div>

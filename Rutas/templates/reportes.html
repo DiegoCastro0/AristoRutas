@@ -5,9 +5,9 @@
     <h2>📊 Reportes de Rutas</h2>
 
     {% if plan == "Premium Avanzado" or plan == "Premium Institucional" %}
-      <p>Total de rutas: {{ data.total_rutas }}</p>
-      <p>Rutas activas: {{ data.rutas_activas }}</p>
-      <p>Rutas inactivas: {{ data.rutas_inactivas }}</p>
+      <p><strong>Total de rutas:</strong> {{ data.total_rutas }}</p>
+      <p><strong>Rutas activas:</strong> {{ data.rutas_activas }}</p>
+      <p><strong>Rutas inactivas:</strong> {{ data.rutas_inactivas }}</p>
 
       <!-- Aquí puedes añadir gráficos, tablas o exportaciones -->
       <a href="#" class="btn btn-success">Descargar reporte en PDF</a>

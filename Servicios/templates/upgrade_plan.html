@@ -28,10 +28,11 @@
         <div class="card mb-4 border border-secondary">
             <div class="card-header bg-secondary text-white text-center">Plan Gratuito</div>
             <div class="card-body">
-                <p>Acceso básico a filtros de búsqueda de rutas.</p>
+                <p>Acceso completo a la información de rutas sin búsqueda avanzada.</p>
                 <ul class="list-unstyled">
-                    <li>✔ Filtrar rutas por origen y destino</li>
-                    <li>✖ Ver detalles de horarios y paradas</li>
+                    <li>✔ Ver tarifa, paradas y mapa de todas las rutas</li>
+                    <li>✖ Búsqueda de rutas por nombre</li>
+                    <li>✖ Herramienta ¿A dónde voy?</li>
                     <li>✖ Descarga de reportes</li>
                 </ul>
                 <p class="fw-bold text-center mt-3">Precio: $0/mes</p>
@@ -41,36 +42,39 @@
         <div class="card mb-4 border border-primary">
             <div class="card-header bg-primary text-white text-center">Premium Básico</div>
             <div class="card-body">
-                <p>Ideal para usuarios frecuentes que necesitan más información.</p>
+                <p>Ideal para usuarios que necesitan búsqueda avanzada de rutas.</p>
                 <ul class="list-unstyled">
-                    <li>✔ Filtrar rutas por origen y destino</li>
-                    <li>✔ Ver detalles de horarios y paradas</li>
+                    <li>✔ Ver tarifa, paradas y mapa de todas las rutas</li>
+                    <li>✔ Búsqueda de rutas por nombre, origen y destino</li>
+                    <li>✖ Herramienta ¿A dónde voy?</li>
                     <li>✖ Descarga de reportes</li>
                 </ul>
-                <p class="fw-bold text-center mt-3">Precio: $4.99/mes</p>
+                <p class="fw-bold text-center mt-3">Precio: $2.99/mes</p>
             </div>
         </div>
 
         <div class="card mb-4 border border-success">
             <div class="card-header bg-success text-white text-center">Premium Avanzado</div>
             <div class="card-body">
-                <p>Para quienes necesitan acceso completo a la información.</p>
+                <p>Para quienes necesitan acceso completo incluyendo búsqueda avanzada por GPS.</p>
                 <ul class="list-unstyled">
-                    <li>✔ Filtrar rutas por origen y destino</li>
-                    <li>✔ Ver detalles de horarios y paradas</li>
+                    <li>✔ Ver tarifa, paradas y mapa de todas las rutas</li>
+                    <li>✔ Búsqueda de rutas por nombre, origen y destino</li>
+                    <li>✔ Herramienta ¿A dónde voy? (búsqueda manual y GPS)</li>
                     <li>✔ Descarga de reportes en PDF</li>
                 </ul>
-                <p class="fw-bold text-center mt-3">Precio: $9.99/mes</p>
+                <p class="fw-bold text-center mt-3">Precio: $6.99/mes</p>
             </div>
         </div>
 
         <div class="card mb-4 border border-light">
             <div class="card-header bg-dark text-white text-center">Premium Institucional</div>
             <div class="card-body">
-                <p>Diseñado para empresas, escuelas o instituciones públicas.</p>
+                <p>Diseñado para empresas, escuelas o instituciones públicas con necesidades especiales.</p>
                 <ul class="list-unstyled">
-                    <li>✔ Acceso completo a todos los datos</li>
-                    <li>✔ Panel de administración de usuarios</li>
+                    <li>✔ Acceso completo a todos los datos y herramientas</li>
+                    <li>✔ Herramienta ¿A dónde voy? con búsqueda manual y GPS</li>
+                    <li>✔ Descarga de reportes ilimitados</li>
                     <li>✔ Soporte técnico prioritario</li>
                 </ul>
                 <p class="fw-bold text-center mt-3">Precio: $29.99/mes</p>
@@ -121,8 +125,8 @@
                             <label for="plan" class="form-label">Selecciona tu plan</label>
                             <select class="form-select" id="plan" name="plan" required>
                                 <option value="">-- Elige una opción --</option>
-                                <option value="Premium Básico">Premium Básico - $4.99/mes</option>
-                                <option value="Premium Avanzado">Premium Avanzado - $9.99/mes</option>
+                                <option value="Premium Básico">Premium Básico - $2.99/mes</option>
+                                <option value="Premium Avanzado">Premium Avanzado - $6.99/mes</option>
                                 <option value="Premium Institucional">Premium Institucional - $29.99/mes</option>
                             </select>
                         </div>
