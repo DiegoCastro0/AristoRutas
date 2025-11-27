@@ -17,7 +17,27 @@ def obtener_plan_activo(usuario):
     return pago.plan if pago else "Gratuito"
 
 def Rutas(request):
-    return render(request, 'rutas.html')
+    rutas_busqueda = RutaBus.objects.none()
+    busqueda = request.GET.get('busqueda', '').strip()
+
+    if busqueda:
+        # Si hay búsqueda, mostrar resultados en lugar de categorías
+        rutas_busqueda = RutaBus.objects.filter(
+            Q(nombre_ruta__icontains=busqueda) |
+            Q(origen__icontains=busqueda) |
+            Q(destino__icontains=busqueda),
+            estado='Activa'
+        ).distinct().order_by('id')
+        
+        # Paginación
+        paginator = Paginator(rutas_busqueda, 4)
+        rutas_busqueda = paginator.get_page(request.GET.get('page'))
+    
+    context = {
+        'rutas_busqueda': rutas_busqueda,
+        'busqueda': busqueda,
+    }
+    return render(request, 'rutas.html', context)
 
 
 def urbanas(request):
@@ -116,6 +136,10 @@ def donde_voy(request):
             pass
 
         rutas_sugeridas = qs.distinct()
+
+    # Paginación
+    paginator = Paginator(rutas_sugeridas, 4)
+    rutas_sugeridas = paginator.get_page(request.GET.get('page'))
 
     context = {
         'rutas_sugeridas': rutas_sugeridas,

@@ -10,43 +10,161 @@
     <h1 class="text-center text-light fw-bold mb-4">Categorías de Rutas</h1>
     <p class="text-center text-light lead mb-5">Seleccione el tipo de rutas que desea ver.</p>
 
-   <div class="row g-4 justify-content-center">
-
-  <!-- Tarjeta 1 -->
-  <div class="col-md-6 d-flex justify-content-center">
-    <div class="ruta-card" style="background-image: url(/static/img/buses/112.jpg)">
-      <div class="overlay"></div>
-      <div class="card-info">
-        <h3>Rutas Urbanas</h3>
-        <p>Rutas dentro del municipio de San Miguel.</p>
-        <a href="{% url 'urbanas' %}" class="btn-custom btn-sm mt-2">Ver urbanas</a>
-      </div>
+    <!-- BUSCADOR -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-6">
+            <form method="get" action="{% url 'rutas' %}" class="d-flex gap-2">
+                <input type="text" 
+                       name="busqueda" 
+                       class="form-control form-control-lg" 
+                       placeholder="Buscar ruta"
+                       value="{{ busqueda }}">
+                <button type="submit" class="btn btn-primary btn-lg fw-bold">
+                    Buscar
+                </button>
+            </form>
+        </div>
     </div>
-  </div>
 
-  <!-- Tarjeta 2 -->
-  <div class="col-md-6 d-flex justify-content-center">
-    <div class="ruta-card" style="background-image: url(/static/img/buses/Bus-berlin.jpg)">
-      <div class="overlay"></div>
-      <div class="card-info">
-        <h3>Rutas Departamentales</h3>
-        <p>Conectan municipios dentro del mismo departamento.</p>
-        <a href="{% url 'interdepartamentales' %}" class="btn-custom btn-sm mt-2">Ver departamentales</a>
-      </div>
-    </div>
-  </div>
+    {% if rutas_busqueda %}
+        <!-- RESULTADOS DE BÚSQUEDA -->
+        <h2 class="text-light mb-4">Resultados de búsqueda</h2>
+        <div class="row g-4">
+            {% for ruta in rutas_busqueda %}
+            <div class="col-md-6">
+                {% if ruta.tipo == 'Urbana' %}
+                    <div class="ruta-card" style="background-image: url(/static/img/buses/13.jpg)">
+                {% elif ruta.tipo == 'Interdepartamental' %}
+                    <div class="ruta-card" style="background-image: url(/static/img/buses/Bus-berlin.jpg)">
+                {% elif ruta.tipo == 'Interurbana' %}
+                    <div class="ruta-card" style="background-image: url(/static/img/buses/333.jpg)">
+                {% else %}
+                    <div class="ruta-card" style="background-image: url(/static/img/buses/Bus-berlin.jpg)">
+                {% endif %}
+                        <div class="overlay"></div>
+                        <div class="card-info">
+                            <h3>{{ ruta.nombre_ruta }}</h3>
+                            <p>Origen: {{ ruta.origen }}</p>
+                            <p>Destino: {{ ruta.destino }}</p>
+                            {% if ruta.link %}
+                                <button class="btn-custom btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modal{{ ruta.id }}">
+                                    Ver detalles
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
 
-  <!-- Tarjeta 3 centrada debajo -->
-  <div class="col-12 d-flex justify-content-center">
-    <div class="ruta-card" style="background-image: url(/static/img/buses/ruta13.png)">
-      <div class="overlay"></div>
-      <div class="card-info">
-        <h3>Rutas Interurbanas</h3>
-        <p>Conectan diferentes departamentos del país.</p>
-        <a href="{% url 'interurbanas' %}" class="btn-custom btn-sm mt-2">Ver interurbanas</a>
-      </div>
-    </div>
-  </div>
+        <!-- Paginación -->
+        <div class="d-flex justify-content-center mt-5">
+            <nav>
+                <ul class="pagination pagination-lg">
+                    {% if rutas_busqueda.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ rutas_busqueda.previous_page_number }}&busqueda={{ busqueda }}">Anterior</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Anterior</span>
+                        </li>
+                    {% endif %}
 
-</div>
+                    {% for num in rutas_busqueda.paginator.page_range %}
+                        {% if rutas_busqueda.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}&busqueda={{ busqueda }}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if rutas_busqueda.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ rutas_busqueda.next_page_number }}&busqueda={{ busqueda }}">Siguiente</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Siguiente</span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Modales de búsqueda -->
+        {% for ruta in rutas_busqueda %}
+            {% if ruta.link %}
+            <div class="modal fade" id="modal{{ ruta.id }}" tabindex="-1">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content modal-dark" style="background-color: #212529; color: white;">
+                        <div class="modal-header border-secondary">
+                            <h5 class="modal-title">{{ ruta.nombre_ruta }}</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                            <p><strong>Origen:</strong> {{ ruta.origen }}</p>
+                            <p><strong>Destino:</strong> {{ ruta.destino }}</p>
+                            <p><strong>Tipo:</strong> {{ ruta.tipo }}</p>
+                            <p><strong>Tarifa aprox:</strong> ${{ ruta.tarifa }}</p>
+                            {% if ruta.paradas %}
+                                <p><strong>Paradas:</strong> {{ ruta.paradas }}</p>
+                            {% endif %}
+                            <iframe src="{{ ruta.link }}" width="100%" height="500" style="border:0;" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+    {% else %}
+        <!-- CATEGORÍAS (si no hay búsqueda) -->
+        <div class="row g-4 justify-content-center">
+
+            <!-- Tarjeta 1 -->
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="ruta-card" style="background-image: url(/static/img/buses/112.jpg)">
+                    <div class="overlay"></div>
+                    <div class="card-info">
+                        <h3>Rutas Urbanas</h3>
+                        <p>Rutas dentro del municipio de San Miguel.</p>
+                        <a href="{% url 'urbanas' %}" class="btn-custom btn-sm mt-2">Ver urbanas</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="ruta-card" style="background-image: url(/static/img/buses/Bus-berlin.jpg)">
+                    <div class="overlay"></div>
+                    <div class="card-info">
+                        <h3>Rutas Departamentales</h3>
+                        <p>Conectan municipios dentro del mismo departamento.</p>
+                        <a href="{% url 'interdepartamentales' %}" class="btn-custom btn-sm mt-2">Ver departamentales</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3 centrada debajo -->
+            <div class="col-12 d-flex justify-content-center">
+                <div class="ruta-card" style="background-image: url(/static/img/buses/ruta13.png)">
+                    <div class="overlay"></div>
+                    <div class="card-info">
+                        <h3>Rutas Interurbanas</h3>
+                        <p>Conectan diferentes departamentos del país.</p>
+                        <a href="{% url 'interurbanas' %}" class="btn-custom btn-sm mt-2">Ver interurbanas</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% endif %}
+
+</main>
+
 {% endblock %}

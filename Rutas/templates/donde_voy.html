@@ -3,6 +3,8 @@
 
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'css/diserutas.css' %}">
+
 <section class="hero-section d-flex align-items-center justify-content-center"
          style="min-height: 100vh; background: url('{% static "img/fondos.jpg" %}') center/cover no-repeat;">
     <div class="overlay position-absolute w-100 h-100" style="background: rgba(0,0,0,0.65); top:0; left:0;"></div>
@@ -85,33 +87,74 @@
                     <div class="mt-5">
                         <h2 class="text-light mb-3">Rutas sugeridas</h2>
 
-                        <div class="row g-3">
+                        <div class="row g-4">
                             {% for ruta in rutas_sugeridas %}
-                                <div class="col-md-6">
-                                    <div class="card h-100 shadow-sm">
-                                        <div class="card-body">
-                                            <h5 class="card-title fw-bold">{{ ruta.nombre_ruta }}</h5>
-                                            <p class="card-text mb-1"><strong>Origen:</strong> {{ ruta.origen }}</p>
-                                            <p class="card-text mb-1"><strong>Destino:</strong> {{ ruta.destino }}</p>
-                                            <p class="card-text mb-1">
-                                                <strong>Tipo:</strong> {{ ruta.tipo }} |
-                                                <strong>Tarifa aprox:</strong> ${{ ruta.tarifa }}
-                                            </p>
-                                            {% if ruta.paradas %}
-                                                <p class="card-text">
-                                                    <strong>Paradas:</strong> {{ ruta.paradas }}
-                                                </p>
-                                            {% endif %}
-                                            {% if ruta.link %}
-                                                <a href="{{ ruta.link }}" target="_blank" class="btn btn-outline-primary btn-sm mt-2">
-                                                    Ver recorrido en mapa
-                                                </a>
-                                            {% endif %}
-                                        </div>
+                            <div class="col-md-6">
+                                {% if ruta.tipo == 'Urbana' %}
+                                    <div class="ruta-card" style="background-image: url(/static/img/buses/13.jpg)">
+                                {% elif ruta.tipo == 'Interdepartamental' %}
+                                    <div class="ruta-card" style="background-image: url(/static/img/buses/Bus-berlin.jpg)">
+                                {% elif ruta.tipo == 'Interurbana' %}
+                                    <div class="ruta-card" style="background-image: url(/static/img/buses/333.jpg)">
+                                {% else %}
+                                    <div class="ruta-card" style="background-image: url(/static/img/buses/Bus-berlin.jpg)">
+                                {% endif %}
+                                    <div class="overlay"></div>
+                                    <div class="card-info">
+                                        <h3>{{ ruta.nombre_ruta }}</h3>
+                                        <p>Origen: {{ ruta.origen }}</p>
+                                        <p>Destino: {{ ruta.destino }}</p>
+                                        {% if ruta.link %}
+                                            <button class="btn-custom btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modal{{ ruta.id }}">
+                                                Ver detalles
+                                            </button>
+                                        {% endif %}
                                     </div>
                                 </div>
+                            </div>
                             {% endfor %}
                         </div>
+                    </div>
+
+                    <!-- Paginación -->
+                    <div class="d-flex justify-content-center mt-5">
+                        <nav>
+                            <ul class="pagination pagination-lg">
+
+                                {% if rutas_sugeridas.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ rutas_sugeridas.previous_page_number }}&modo={{ modo }}&origen={{ origen }}&destino={{ destino }}">Anterior</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Anterior</span>
+                                    </li>
+                                {% endif %}
+
+                                {% for num in rutas_sugeridas.paginator.page_range %}
+                                    {% if rutas_sugeridas.number == num %}
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ num }}</span>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ num }}&modo={{ modo }}&origen={{ origen }}&destino={{ destino }}">{{ num }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if rutas_sugeridas.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ rutas_sugeridas.next_page_number }}&modo={{ modo }}&origen={{ origen }}&destino={{ destino }}">Siguiente</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Siguiente</span>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                        </nav>
                     </div>
 
                 {% elif request.GET %}
@@ -123,6 +166,39 @@
                         </p>
                     </div>
                 {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modales (fuera de la sección hero) -->
+{% if rutas_sugeridas %}
+    {% for ruta in rutas_sugeridas %}
+        {% if ruta.link %}
+        <div class="modal fade" id="modal{{ ruta.id }}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content modal-dark" style="background-color: #212529; color: white;">
+                    <div class="modal-header border-secondary">
+                        <h5 class="modal-title">{{ ruta.nombre_ruta }}</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                        <p><strong>Origen:</strong> {{ ruta.origen }}</p>
+                        <p><strong>Destino:</strong> {{ ruta.destino }}</p>
+                        <p><strong>Tipo:</strong> {{ ruta.tipo }}</p>
+                        <p><strong>Tarifa aprox:</strong> ${{ ruta.tarifa }}</p>
+                        {% if ruta.paradas %}
+                            <p><strong>Paradas:</strong> {{ ruta.paradas }}</p>
+                        {% endif %}
+                        <iframe src="{{ ruta.link }}" width="100%" height="500" style="border:0;" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 
             </div>
         </div>
