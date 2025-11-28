@@ -20,7 +20,10 @@ def login_view(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, "Usuario o contraseña incorrectos.")
+            error_text = "Usuario o contraseña incorrectos."
+            # also keep messages for other parts of the app if needed
+            messages.error(request, error_text)
+            return render(request, 'login.html', {'modo': 'login', 'error': error_text})
     return render(request, 'login.html', {'modo': 'login'})
 
 # --- REGISTRO ---

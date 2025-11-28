@@ -101,25 +101,12 @@
             <div class="modal-body">
                 <form method="POST" action="{% url 'upgrade_plan' %}">
 
-                    <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        {% if messages %}
-                            var modal = new bootstrap.Modal(document.getElementById('formularioPago'));
-                            modal.show();
-                        {% endif %}
-                    });
-                    </script>
+                    <!-- No auto-open script: modal opens only when user clicks 'Mejorar plan' -->
 
                     {% if user.is_authenticated %}
                         {% csrf_token %}
 
-                        {% if messages %}
-                          {% for message in messages %}
-                            <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} text-center mb-3" role="alert">
-                              {{ message }}
-                            </div>
-                          {% endfor %}
-                        {% endif %}
+                                                <!-- Mensajes de sistema no se muestran dentro de este modal -->
 
                         <div class="mb-3">
                             <label for="plan" class="form-label">Selecciona tu plan</label>
