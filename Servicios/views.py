@@ -21,10 +21,10 @@ def upgrade_plan(request):
 
         # Asignar monto según plan
         if plan == "Premium Básico":
-            monto = Decimal("4.99")
+            monto = Decimal("2.99")
         elif plan == "Premium Avanzado":
-            monto = Decimal("9.99")
-        elif plan == "Premium Institucional":
+            monto = Decimal("6.99")
+        elif plan == "Premium Familiar":
             monto = Decimal("29.99")
         else:
             monto = Decimal("0.00")
